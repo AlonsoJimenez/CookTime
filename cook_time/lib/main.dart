@@ -11,13 +11,16 @@ class login extends StatelessWidget{
         title: Text("Welcome to Cook Time"),
       ),
       body: Container(decoration: BoxDecoration(gradient: LinearGradient(colors: [
+        Colors.blue[900],
+        Color(0xFF2962FF),
+        Color(0xFF2962FF),
         Color(0xFF2962FF),
         Color(0xFF2962FF),
         Color(0xFFFFFFFF),
       ],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      stops: [0.1, 0.5, 0.9],)), child: Center(
+      stops: [0.1, 0.3, 0.4, 0.6, 0.7, 0.99],)), child: Center(
       child:
         Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           TextField(obscureText: false, decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Email', prefixIcon: Icon(Icons.email, color: Colors.white,))),
