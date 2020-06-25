@@ -14,18 +14,19 @@ class login extends StatelessWidget{
         Colors.blue[900],
         Color(0xFF2962FF),
         Color(0xFF2962FF),
-        Color(0xFF2962FF),
-        Color(0xFF2962FF),
+        Colors.blue[600],
+        Colors.blue[500],
+        Colors.blue[400],
         Color(0xFFFFFFFF),
       ],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      stops: [0.1, 0.3, 0.4, 0.6, 0.7, 0.99],)), child: Center(
+      stops: [0.1, 0.3, 0.4, 0.6, 0.7, 0.8, 0.99],)), child: Center(
       child:
         Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          TextField(obscureText: false, decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Email', prefixIcon: Icon(Icons.email, color: Colors.white,))),
+          TextField(obscureText: false, decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Email', hintStyle: TextStyle(color: Colors.white), prefixIcon: Icon(Icons.email, color: Colors.white,))),
           SizedBox(height: 10),
-          TextField(obscureText: true, decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Password', prefixIcon: Icon(Icons.lock, color: Colors.white,)),),
+          TextField(obscureText: true, decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Password', hintStyle: TextStyle(color: Colors.white), prefixIcon: Icon(Icons.lock, color: Colors.white,)),),
           SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
              FlatButton(textColor: Colors.white, splashColor: Colors.blueAccent,onPressed: () {
