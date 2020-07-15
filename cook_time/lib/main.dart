@@ -7,6 +7,21 @@ void main() => runApp(login());
 class login extends StatelessWidget {
   final loginController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<http.Response> fetchUser(String username, String password) {
+    return http.get("http://10.0.2.2:9080/CookTimeServer/rest/login?username=" +
+        username +
+        "&password=" +
+        password);
+  }
+
+  Widget popUpProblem(BuildContext context, String problem) {
+    return AlertDialog(
+      title: Text(problem),
+      shape: CircleBorder(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -81,7 +96,14 @@ class login extends StatelessWidget {
                           fetchUser(
                                   loginController.text, passwordController.text)
                               .then((value) {
-                            print(value.body.toString());
+                            if (value.statusCode == 200) {
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: popUpProblem(
+                                      context, "Invalid user or password"));
+                            }
+                            ;
                           });
                         },
                         child: Text("Login", style: TextStyle(fontSize: 20.0)),
@@ -94,11 +116,4 @@ class login extends StatelessWidget {
           )),
     );
   }
-}
-
-Future<http.Response> fetchUser(String username, String password) {
-  return http.get("http://10.0.2.2:9080/CookTimeServer/rest/login?username=" +
-      username +
-      "&password=" +
-      password);
 }
