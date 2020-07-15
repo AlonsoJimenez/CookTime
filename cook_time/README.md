@@ -1,6 +1,6 @@
 # cook_time
 
-A new Flutter project.
+Proyecto 2 de Datos 1 2020
 
 ## Getting Started
 

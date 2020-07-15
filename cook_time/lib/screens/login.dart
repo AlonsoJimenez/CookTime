@@ -1,0 +1,121 @@
+import 'package:cook_time/logic/sizeConfig.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => LoginState();
+}
+
+
+class LoginState extends State<Login> {
+  final loginController = TextEditingController();
+  final passwordController = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 34, 80, 129),
+          centerTitle: true,
+          title: Text("Welcome to Cook Time", style: TextStyle(color: Colors.white),),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.blue[900],
+                  Color(0xFF2962FF),
+                  Color(0xFF2962FF),
+                  Colors.blue[600],
+                  Colors.blue[500],
+                  Colors.blue[400],
+                  Color(0xFFFFFFFF),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.1, 0.6, 0.6, 0.7, 0.8, 0.9, 1.0],
+              )),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextField(
+                    style: TextStyle(color: Colors.white),
+                    controller: loginController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Email',
+                        hintStyle: TextStyle(color: Colors.white),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.white,
+                        ))),
+                SizedBox(height: 10),
+                TextField(
+                  style: TextStyle(color: Colors.white),
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.white),
+                      prefixIcon: Icon(
+                        Icons.lock_open,
+                        color: Colors.white,
+                      )),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    FlatButton(
+                      textColor: Colors.white,
+                      splashColor: Colors.blueAccent,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signin');
+                      },
+                      child: Text(
+                        "Create an account",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                    FlatButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(8.0),
+                      splashColor: Colors.blueAccent,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/screens');
+                        fetchUser(
+                            loginController.text, passwordController.text)
+                            .then((value) {
+                          print(value.body.toString());
+
+                        });
+                      },
+                      child: Text("Login", style: TextStyle(fontSize: 20.0)),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+    );
+  }
+
+
+
+  Future<http.Response> fetchUser(String username, String password) {
+    return http.get("http://10.0.2.2:9080/CookTimeServer/rest/login?username=" +
+        username +
+        "&password=" +
+        password);
+  }
+}
