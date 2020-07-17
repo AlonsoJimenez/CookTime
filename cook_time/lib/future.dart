@@ -101,14 +101,21 @@ Future<User> profileSearch(String user, String password, String search) async {
   }
 }
 
-Future<http.Response> enterpriseSearch(
-    String user, String password, String search) {
+Future<Enterprise> enterpriseSearch(
+    String user, String password, String search) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
+  final response = await http.get(
     "http://10.0.2.2:9080/CookTimeServer/rest/user/enterprise/$search",
     // Send authorization headers to the backend.
     headers: <String, String>{"authorization": author},
   );
+  if (response.statusCode == 200) {
+    return response.body.toString() != ""
+        ? Enterprise.fromJson(json.decode(response.body))
+        : null;
+  } else {
+    throw Exception("Load to search for user");
+  }
 }
 
 Future<http.Response> menuSearch(String user, String password, String search) {

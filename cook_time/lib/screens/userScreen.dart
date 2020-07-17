@@ -63,73 +63,71 @@ class UserScreenState extends State<UserScreen> {
   }
 
   static Row userTop(User profileInfo) {
-    return Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Row(children: [
+      Column(
         children: [
-          Column(
+          Container(
+            height: SizeConfig.fixAllVer * 1.6,
+            width: SizeConfig.fixAllHor * 4,
+            color: Colors.blue,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Image.memory(base64Decode(profileInfo.imageBytes)),
+            ),
+          ),
+          Text(
+            profileInfo.name,
+            textScaleFactor: SizeConfig.fixLil * 3,
+            style: TextStyle(color: Colors.deepPurple),
+          )
+        ],
+      ),
+      Column(
+        children: [
+          Row(
             children: [
               Container(
-                height: SizeConfig.fixAllVer * 1.6,
-                width: SizeConfig.fixAllHor * 4,
-                color: Colors.blue,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Image.memory(base64Decode(profileInfo.imageBytes)),
-                ),
+                width: SizeConfig.fixAllHor * 0.5,
               ),
-              Text(
-                profileInfo.name,
-                textScaleFactor: SizeConfig.fixLil * 3,
-                style: TextStyle(color: Colors.deepPurple),
-              )
-            ],
-          ),
-          Container(
-            width: SizeConfig.fixAllHor * 1,
-          ),
-          Column(
-            children: [
-              Row(
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      Text(profileInfo.followers != null
-                          ? profileInfo.followers.length.toString()
-                          : "0"),
-                      Text("Seguidores"),
-                    ],
-                  ),
-                  Container(
-                    width: SizeConfig.fixAllHor * 1,
-                  ),
-                  Column(
-                    children: [
-                      Text(profileInfo.following != null
-                          ? profileInfo.following.length.toString()
-                          : "0"),
-                      Text("Siguiendo"),
-                    ],
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.blue)),
-                      disabledColor: Colors.blueGrey,
-                      disabledTextColor: Colors.black,
-                      color: Colors.white,
-                      textColor: Colors.black,
-                      elevation: 5.0,
-                      onPressed: () {
-                        print("Crear receta presionado");
-                      },
-                      child: Text("Nueva Receta"),
-                    ),
-                  ),
+                  Text(profileInfo.followers != null
+                      ? profileInfo.followers.length.toString()
+                      : "0"),
+                  Text("Seguidores"),
+                ],
+              ),
+              Container(
+                width: SizeConfig.fixAllHor * 1,
+              ),
+              Column(
+                children: [
+                  Text(profileInfo.following != null
+                      ? profileInfo.following.length.toString()
+                      : "0"),
+                  Text("Siguiendo"),
                 ],
               ),
             ],
           ),
-        ]);
+          Container(
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.blue)),
+              disabledColor: Colors.blueGrey,
+              disabledTextColor: Colors.black,
+              color: Colors.white,
+              textColor: Colors.black,
+              elevation: 5.0,
+              onPressed: () {
+                print("Crear receta presionado");
+              },
+              child: Text("Nueva Receta"),
+            ),
+          ),
+        ],
+      ),
+    ]);
   }
 }

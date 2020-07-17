@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/login.dart';
-import 'package:cook_time/screens/tabBView.dart';
 import 'package:flutter/material.dart';
 
 import '../objects.dart';
@@ -45,7 +43,82 @@ class SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  SizedBox enterpriseSearch() {}
+  SizedBox enterpriseResearch(Enterprise company) {
+    return SizedBox(
+        height: 110,
+        child: Container(
+          margin: EdgeInsets.all(SizeConfig.fixLil * 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                    height: SizeConfig.fixAllVer * 0.8,
+                    width: SizeConfig.fixAllHor * 2,
+                    color: Colors.blue,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Icon(Icons.business, color: Colors.black),
+                    )),
+                onDoubleTap: () {},
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(company.enterpriseName),
+                  Text(company.operationHours),
+                ],
+              ),
+              followCompanyButton(company.enterpriseName),
+            ],
+          ),
+        ));
+  }
+
+  FlatButton followCompanyButton(String name) {
+    String textButton = "Follow";
+    return FlatButton(
+      color: Colors.blue,
+      textColor: Colors.white,
+      padding: EdgeInsets.all(8.0),
+      splashColor: Colors.blueAccent,
+      onPressed: () {
+        followCompany(LoginState.loginController.text.toString(),
+                LoginState.passwordController.text.toString(), name)
+            .then((response) => {
+                  if (response.statusCode == 200)
+                    {
+                      this.setState(() {
+                        variableCont = defaultContainer();
+                      })
+                    }
+                  else
+                    {throw Exception("Error sending request")}
+                });
+      },
+      child: Text(
+        textButton,
+        style: TextStyle(fontSize: 20.0),
+      ),
+    );
+  }
 
   SizedBox profileResearch(User profile) {
     return SizedBox(
@@ -234,9 +307,26 @@ class SearchScreenState extends State<SearchScreen> {
                       textColor: Colors.black,
                       elevation: 5.0,
                       onPressed: () {
-                        setState(() {
-                          treeValue = 2;
-                        });
+                        enterpriseSearch(
+                                LoginState.loginController.text.toString(),
+                                LoginState.passwordController.text.toString(),
+                                searchController.text.toString())
+                            .then((valueResp) => {
+                                  if (valueResp != null)
+                                    {
+                                      setState(() {
+                                        variableCont =
+                                            enterpriseResearch(valueResp);
+                                        treeValue = 1;
+                                      })
+                                    }
+                                  else
+                                    {
+                                      setState(() {
+                                        variableCont = noResults();
+                                      })
+                                    }
+                                });
                       },
                       child: Text("Empresa"),
                     )
