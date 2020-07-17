@@ -1,15 +1,20 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
+import 'package:cook_time/screens/login.dart';
 import 'package:flutter/material.dart';
 
-class UserScreen extends StatefulWidget{
+import '../objects.dart';
+
+class UserScreen extends StatefulWidget {
   @override
   State<UserScreen> createState() => UserScreenState();
 }
 
-class UserScreenState extends State<UserScreen>{
+class UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,96 +27,109 @@ class UserScreenState extends State<UserScreen>{
           AspectRatio(
             aspectRatio: 2,
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    )
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0,3),
-                  )
-                ],
-              ),
-              margin: EdgeInsets.all(SizeConfig.fixAllHor*0.2),
-              padding:  EdgeInsets.all(SizeConfig.fixAllHor*0.2),
-              child: userTop(Base64.base64s, "Juanito", "15", "32"),
-            ),
+                margin: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
+                padding: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
+                child: FutureBuilder<User>(
+                  future: profile(LoginState.loginController.text.toString(),
+                      LoginState.passwordController.text.toString()),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return userTop(snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return Text("Error loading info");
+                    }
+                    return CircularProgressIndicator();
+                  },
+                )),
           ),
         ],
       ),
     );
   }
 
-  static Row userTop(String base64, String user, String followers, String following){
+  static Row userTop(User profileInfo) {
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          children: [
-            Container(
-              height: SizeConfig.fixAllVer*1.6,
-              width: SizeConfig.fixAllHor*4,
-              color: Colors.blue,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image.memory(base64Decode(base64)),
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              Container(
+                height: SizeConfig.fixAllVer * 1.6,
+                width: SizeConfig.fixAllHor * 4,
+                color: Colors.blue,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Image.memory(base64Decode(profileInfo.imageBytes)),
+                ),
               ),
-            ),
-            Text(user, textScaleFactor: SizeConfig.fixLil * 3, style: TextStyle(color: Colors.deepPurple),)
-          ],
-        ),
-        Container(
-          width: SizeConfig.fixAllHor * 1,
-        ),
-        Column(
-          children: [
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Text(followers),
-                    Text("Seguidores"),
-                  ],
-                ),
-                Container(
-                  width: SizeConfig.fixAllHor * 1,
-                ),
-                Column(
-                  children: [
-                    Text(following),
-                    Text("Siguiendo"),
-                  ],
-                ),
-              ],
-            ),
-
-            Container(
-              height: SizeConfig.fixAllVer * 0.3,
-            ),
-
-            RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.blue)
+              Text(
+                profileInfo.name,
+                textScaleFactor: SizeConfig.fixLil * 3,
+                style: TextStyle(color: Colors.deepPurple),
+              )
+            ],
+          ),
+          Container(
+            width: SizeConfig.fixAllHor * 1,
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(profileInfo.followers != null
+                          ? profileInfo.followers.length.toString()
+                          : "0"),
+                      Text("Seguidores"),
+                    ],
+                  ),
+                  Container(
+                    width: SizeConfig.fixAllHor * 1,
+                  ),
+                  Column(
+                    children: [
+                      Text(profileInfo.following != null
+                          ? profileInfo.following.length.toString()
+                          : "0"),
+                      Text("Siguiendo"),
+                    ],
+                  ),
+                  Container(
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blue)),
+                      disabledColor: Colors.blueGrey,
+                      disabledTextColor: Colors.black,
+                      color: Colors.white,
+                      textColor: Colors.black,
+                      elevation: 5.0,
+                      onPressed: () {
+                        print("Crear receta presionado");
+                      },
+                      child: Text("Nueva Receta"),
+                    ),
+                  ),
+                ],
               ),
-              disabledColor: Colors.blueGrey,
-              disabledTextColor: Colors.black,
-              color: Colors.white,
-              textColor: Colors.black,
-              elevation: 5.0,
-              onPressed: (){
-                print("Crear receta presionado");
-              },
-              child: Text("Nueva Receta"),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+        ]);
   }
 }

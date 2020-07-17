@@ -31,23 +31,31 @@ class User {
       this.myMenu});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    var jsonCompanies = jsonDecode(json["companies"]) as List;
+    var jsonCompanies = json["companies"] as List;
+    var jsonFollowers = json["followers"] as List;
+    var jsonFollowing = json["following"] as List;
+    var jsonMenu = json["myMenu"] as List;
+    var jsonComp = json["followingComp"] as List;
     return User(
-        isChef: json["isChef"],
-        age: json["age"],
-        email: json["email"],
-        lastname: json["lastname"],
-        name: json["name"],
-        password: json["password"],
-        profileDescription: json["profileDescription"],
-        imageBytes: json["imageBytes"],
-        companies: jsonCompanies
-            .map((enterpriseVars) => Enterprise.fromJson(enterpriseVars))
-            .toList(),
-        followers: json["followers"] as List,
-        following: json["following"] as List,
-        myMenu: json["myMenu"] as List,
-        followingComp: json["followingComp"] as List);
+        isChef: json["isChef"] != null ? json["isChef"] : null,
+        age: json["age"] != null ? json["age"] : null,
+        email: json["email"] != null ? json["email"] : null,
+        lastname: json["lastName"] != null ? json["lastName"] : null,
+        name: json["name"] != null ? json["name"] : null,
+        password: json["password"] != null ? json["password"] : null,
+        profileDescription: json["profileDescription"] != null
+            ? json["profileDescription"]
+            : null,
+        imageBytes: json["imageBytes"] != null ? json["imageBytes"] : null,
+        followers: jsonFollowers != null ? List.from(jsonFollowers) : null,
+        following: jsonFollowing != null ? List.from(jsonFollowing) : null,
+        myMenu: jsonMenu != null ? List.from(jsonMenu) : null,
+        followingComp: jsonComp != null ? List.from(jsonComp) : null,
+        companies: jsonCompanies != null
+            ? jsonCompanies
+                .map((variableJson) => Enterprise.fromJson(variableJson))
+                .toList()
+            : null);
   }
 
   Map<String, dynamic> toJson() => {
