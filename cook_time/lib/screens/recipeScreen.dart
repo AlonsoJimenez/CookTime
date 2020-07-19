@@ -15,6 +15,7 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   String base64;
+  bool private = false;
 
   var baseTextFieldControllers = List<TextEditingController>();
   var baseTextFormFields = List<Widget>();
@@ -57,6 +58,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     return Container(
       padding: EdgeInsets.only(
           top: SizeConfig.fixLilVer * 6,
+          bottom: SizeConfig.fixLilVer * 6,
           right: SizeConfig.fixLil * 15,
           left: SizeConfig.fixLil * 15),
       child: TextFormField(
@@ -87,14 +89,14 @@ class RecipeScreenState extends State<RecipeScreen> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
+            spreadRadius: 4,
             blurRadius: 7,
             offset: Offset(0, 3),
           )
         ],
       ),
-      margin: EdgeInsets.all(SizeConfig.fixLil * 20),
-      padding: EdgeInsets.all(SizeConfig.fixLil * 20),
+      margin: EdgeInsets.all(SizeConfig.fixLil * 25),
+      padding: EdgeInsets.all(SizeConfig.fixLil * 25),
       child: Text(
         text,
         textScaleFactor: SizeConfig.fixLilHor * 3,
@@ -157,6 +159,23 @@ class RecipeScreenState extends State<RecipeScreen> {
             //Other Widgets
 
             categoryContainer("Información General"),
+
+            Container(
+              margin: EdgeInsets.all(SizeConfig.fixLil * 30),
+              child: Column(
+                children: [
+                  Text("¿Receta privada?"),
+                  Switch(
+                    value: private,
+                    onChanged: (value) {
+                      setState(() {
+                        private = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
 
             Column(
               children: baseTextFormFields,
