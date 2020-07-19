@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      initialRoute: '/login',
-      //initialRoute: '/screens',
+      //initialRoute: '/login',
+      initialRoute: '/screens',
       routes: {
-        '/screens':(context) => TabBView(),
-        '/login':(context) => Login(),
-        '/signin':(context) => SignInScreen(),
+        '/screens': (context) => TabBView(),
+        '/login': (context) => Login(),
+        '/signin': (context) => SignInScreen(),
       },
     );
   }
