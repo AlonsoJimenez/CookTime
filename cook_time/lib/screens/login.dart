@@ -108,7 +108,12 @@ class LoginState extends State<Login> {
                           .then(
                         (loginResponse) => {
                           if (loginResponse != null)
-                            {Navigator.pushNamed(context, '/screens')}
+                            {
+                              userForEveryone = loginController.text.toString(),
+                              passwordForEveryone =
+                                  passwordController.text.toString(),
+                              Navigator.pushNamed(context, '/screens')
+                            }
                           else
                             {callback(1)}
                         },

@@ -45,8 +45,7 @@ class UserScreenState extends State<UserScreen> {
                 margin: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
                 padding: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
                 child: FutureBuilder<User>(
-                  future: profile(LoginState.loginController.text.toString(),
-                      LoginState.passwordController.text.toString()),
+                  future: profile(userForEveryone, passwordForEveryone),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return userTop(snapshot.data);
