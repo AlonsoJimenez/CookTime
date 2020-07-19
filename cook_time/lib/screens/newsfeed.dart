@@ -19,8 +19,7 @@ class NewsScreenState extends State<NewsScreen> {
     return Container(
         alignment: Alignment.center,
         child: FutureBuilder<List<Recipe>>(
-          future: newsfeed(LoginState.loginController.text.toString(),
-              LoginState.passwordController.text.toString()),
+          future: newsfeed(userForEveryone, passwordForEveryone),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return gettingNews(snapshot.data);

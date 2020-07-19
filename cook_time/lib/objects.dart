@@ -71,11 +71,12 @@ class User {
         "followers": followers,
         "following": following,
         "followingComp": followingComp,
-        "myMenu": myMenu
+        "myMenu": myMenu,
       };
 }
 
 class Enterprise {
+  String imageBytes;
   String enterpriseName;
   String contactInfo;
   String operationHours;
@@ -83,26 +84,33 @@ class Enterprise {
   List<String> members;
   List<String> followers;
 
-  Enterprise({
-    this.contactInfo,
-    this.enterpriseName,
-    this.followers,
-    this.members,
-    this.operationHours,
-    this.recipes,
-  });
+  Enterprise(
+      {this.contactInfo,
+      this.enterpriseName,
+      this.followers,
+      this.members,
+      this.operationHours,
+      this.recipes,
+      this.imageBytes});
 
   factory Enterprise.fromJson(Map<String, dynamic> json) {
-    var jsonRecipes = jsonDecode(json["recipes"]) as List;
+    var jsonRecipes = json["recipes"] as List;
+    var jsonMembers = json["members"] as List;
+    var jsonFollowers = json["followers"] as List;
     return Enterprise(
-        contactInfo: json["contactInfo"],
-        enterpriseName: json["enterpriseName"],
-        followers: json["followers"] as List,
-        members: json["members"] as List,
-        operationHours: json["operationHours"],
-        recipes: jsonRecipes
-            .map((recipesVar) => EnterpriseRecipe.fromJson(recipesVar))
-            .toList());
+        imageBytes: json["imageBytes"] != null ? json["imageBytes"] : null,
+        contactInfo: json["contactInfo"] != null ? json["contactInfo"] : null,
+        enterpriseName:
+            json["enterpriseName"] != null ? json["enterpriseName"] : null,
+        followers: jsonFollowers != null ? List.from(jsonFollowers) : null,
+        members: jsonMembers != null ? List.from(jsonMembers) : null,
+        operationHours:
+            json["operationHours"] != null ? json["operationHours"] : null,
+        recipes: jsonRecipes != null
+            ? jsonRecipes
+                .map((recipesVar) => EnterpriseRecipe.fromJson(recipesVar))
+                .toList()
+            : null);
   }
 
   Map<String, dynamic> toJson() => {
@@ -144,19 +152,26 @@ class Recipe {
       this.tags});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
+    var jsonComments = json["comments"] as List;
+    var jsonIngridients = json["ingridients"] as List;
+    var jsonSteps = json["steps"] as List;
+    var jsonTags = json["tags"] as List;
     return Recipe(
-        author: json["author"],
-        comments: json["comments"] as List,
-        difficulty: json["difficulty"],
-        dishName: json["dishName"],
-        dishType: json["dishType"],
-        imageBytes: json["imageBytes"],
-        ingridients: json["ingridients"] as List,
-        portionsSize: json["portionSize"],
-        preparationMinutes: json["preparationMinutes"],
-        stars: json["stars"],
-        steps: json["steps"] as List,
-        tags: json["tags"] as List);
+        author: json["author"] != null ? json["author"] : null,
+        comments: jsonComments != null ? List.from(jsonComments) : null,
+        difficulty: json["difficulty"] != null ? json["difficulty"] : null,
+        dishName: json["dishName"] != null ? json["dishName"] : null,
+        dishType: json["dishType"] != null ? json["dishType"] : null,
+        imageBytes: json["imageBytes"] != null ? json["imageBytes"] : null,
+        ingridients:
+            jsonIngridients != null ? List.from(jsonIngridients) : null,
+        portionsSize: json["portionSize"] != null ? json["portionSize"] : null,
+        preparationMinutes: json["preparationMinutes"] != null
+            ? json["preparationMinutes"]
+            : null,
+        stars: json["stars"] != null ? json["stars"] : null,
+        steps: jsonSteps != null ? List.from(jsonSteps) : null,
+        tags: jsonTags != null ? List.from(jsonTags) : null);
   }
   Map<String, dynamic> toJson() => {
         "author": author,
@@ -207,21 +222,28 @@ class EnterpriseRecipe extends Recipe {
       this.price});
 
   factory EnterpriseRecipe.fromJson(Map<String, dynamic> json) {
+    var jsonComments = json["comments"] as List;
+    var jsonIngridients = json["ingridients"] as List;
+    var jsonSteps = json["steps"] as List;
+    var jsonTags = json["tags"] as List;
     return EnterpriseRecipe(
-        author: json["author"],
-        comments: json["comments"] as List,
-        difficulty: json["difficulty"],
-        dishName: json["dishName"],
-        dishType: json["dishType"],
-        imageBytes: json["imageBytes"],
-        ingridients: json["ingridients"] as List,
-        portionsSize: json["portionSize"],
-        preparationMinutes: json["preparationMinutes"],
-        stars: json["stars"],
-        steps: json["steps"] as List,
-        tags: json["tags"] as List,
-        isPublic: json["isPublic"],
-        price: json["price"]);
+        author: json["author"] != null ? json["author"] : null,
+        comments: jsonComments != null ? List.from(jsonComments) : null,
+        difficulty: json["difficulty"] != null ? json["difficulty"] : null,
+        dishName: json["dishName"] != null ? json["dishName"] : null,
+        dishType: json["dishType"] != null ? json["dishType"] : null,
+        imageBytes: json["imageBytes"] != null ? json["imageBytes"] : null,
+        ingridients:
+            jsonIngridients != null ? List.from(jsonIngridients) : null,
+        portionsSize: json["portionSize"] != null ? json["portionSize"] : null,
+        preparationMinutes: json["preparationMinutes"] != null
+            ? json["preparationMinutes"]
+            : null,
+        stars: json["stars"] != null ? json["stars"] : null,
+        steps: jsonSteps != null ? List.from(jsonSteps) : null,
+        tags: jsonTags != null ? List.from(jsonTags) : null,
+        isPublic: json["isPublic"] != null ? json["isPublic"] : null,
+        price: json["price"] != null ? json["price"] : null);
   }
 
   Map<String, dynamic> toJson() => {

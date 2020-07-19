@@ -92,6 +92,55 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  SizedBox recipeResearch(Recipe recipe) {
+    return SizedBox(
+        height: 110,
+        child: Container(
+          margin: EdgeInsets.all(SizeConfig.fixLil * 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                    height: SizeConfig.fixAllVer * 0.8,
+                    width: SizeConfig.fixAllHor * 2,
+                    color: Colors.blue,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.memory(base64Decode(recipe.imageBytes)),
+                    )),
+                onDoubleTap: () {},
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(recipe.dishName),
+                  Text(recipe.author),
+                ],
+              ),
+              Text(recipe.stars.toString())
+            ],
+          ),
+        ));
+  }
+
   FlatButton followCompanyButton(String name) {
     String textButton = "Follow";
     return FlatButton(
@@ -100,8 +149,7 @@ class SearchScreenState extends State<SearchScreen> {
       padding: EdgeInsets.all(8.0),
       splashColor: Colors.blueAccent,
       onPressed: () {
-        followCompany(LoginState.loginController.text.toString(),
-                LoginState.passwordController.text.toString(), name)
+        followCompany(userForEveryone, passwordForEveryone, name)
             .then((response) => {
                   if (response.statusCode == 200)
                     {
@@ -177,8 +225,7 @@ class SearchScreenState extends State<SearchScreen> {
       padding: EdgeInsets.all(8.0),
       splashColor: Colors.blueAccent,
       onPressed: () {
-        followUser(LoginState.loginController.text.toString(),
-                LoginState.passwordController.text.toString(), email)
+        followUser(userForEveryone, passwordForEveryone, email)
             .then((response) => {
                   if (response.statusCode == 200)
                     {
@@ -258,9 +305,24 @@ class SearchScreenState extends State<SearchScreen> {
                       textColor: Colors.black,
                       elevation: 5.0,
                       onPressed: () {
-                        setState(() {
-                          treeValue = 0;
-                        });
+                        menuSearch(userForEveryone, passwordForEveryone,
+                                searchController.text.toString())
+                            .then((valueResp) => {
+                                  if (valueResp != null)
+                                    {
+                                      setState(() {
+                                        variableCont =
+                                            recipeResearch(valueResp);
+                                        treeValue = 1;
+                                      })
+                                    }
+                                  else
+                                    {
+                                      setState(() {
+                                        variableCont = noResults();
+                                      })
+                                    }
+                                });
                       },
                       child: Text("Receta"),
                     ),
@@ -274,9 +336,7 @@ class SearchScreenState extends State<SearchScreen> {
                       textColor: Colors.black,
                       elevation: 5.0,
                       onPressed: () {
-                        profileSearch(
-                                LoginState.loginController.text.toString(),
-                                LoginState.passwordController.text.toString(),
+                        profileSearch(userForEveryone, passwordForEveryone,
                                 searchController.text.toString())
                             .then((valueResp) => {
                                   if (valueResp != null)
@@ -307,9 +367,7 @@ class SearchScreenState extends State<SearchScreen> {
                       textColor: Colors.black,
                       elevation: 5.0,
                       onPressed: () {
-                        enterpriseSearch(
-                                LoginState.loginController.text.toString(),
-                                LoginState.passwordController.text.toString(),
+                        enterpriseSearch(userForEveryone, passwordForEveryone,
                                 searchController.text.toString())
                             .then((valueResp) => {
                                   if (valueResp != null)

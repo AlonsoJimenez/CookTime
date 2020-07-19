@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'objects.dart';
 
+String userForEveryone;
+String passwordForEveryone;
+
 User mainUserProfile;
 
 //get methods
@@ -118,13 +121,26 @@ Future<Enterprise> enterpriseSearch(
   }
 }
 
-Future<http.Response> menuSearch(String user, String password, String search) {
+Future<Recipe> menuSearch(String user, String password, String search) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
+  final response = await http.get(
     "http://10.0.2.2:9080/CookTimeServer/rest/user/menu/$search",
     // Send authorization headers to the backend.
     headers: <String, String>{"authorization": author},
   );
+  if (response.statusCode == 200) {
+    if (response.body.toString() != "") {
+      if (json.decode(response.body)["isPublic"] != null) {
+        return EnterpriseRecipe.fromJson(json.decode(response.body));
+      } else {
+        return Recipe.fromJson(json.decode(response.body));
+      }
+    } else {
+      return null;
+    }
+  } else {
+    throw Exception("Load to search for user");
+  }
 }
 
 //post methods
