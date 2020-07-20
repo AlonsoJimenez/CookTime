@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/login.dart';
+import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -39,69 +40,18 @@ class RecipeScreenState extends State<RecipeScreen> {
     if (baseTextFieldControllers.length == 0) {
       for (int x = 0; x < 6; x++) {
         baseTextFieldControllers.add(TextEditingController());
-        baseTextFormFields
-            .add(textFormFieldCreator(baseTextFieldControllers[x], text[x]));
+        baseTextFormFields.add(ReusableWidgets.textFormFieldCreator(
+            baseTextFieldControllers[x], text[x]));
       }
 
       ingredientTextFieldControllers.add(TextEditingController());
-      ingredientTextFormFields.add(textFormFieldCreator(
+      ingredientTextFormFields.add(ReusableWidgets.textFormFieldCreator(
           ingredientTextFieldControllers[0], "Ingrediente 1"));
 
       stepsTextFieldControllers.add(TextEditingController());
-      stepsTextFormFields
-          .add(textFormFieldCreator(stepsTextFieldControllers[0], "Paso 1"));
+      stepsTextFormFields.add(ReusableWidgets.textFormFieldCreator(
+          stepsTextFieldControllers[0], "Paso 1"));
     }
-  }
-
-  Container textFormFieldCreator(
-      TextEditingController controller, String text) {
-    return Container(
-      padding: EdgeInsets.only(
-          top: SizeConfig.fixLilVer * 6,
-          bottom: SizeConfig.fixLilVer * 6,
-          right: SizeConfig.fixLil * 15,
-          left: SizeConfig.fixLil * 15),
-      child: TextFormField(
-        style: TextStyle(color: Colors.black),
-        controller: controller,
-        obscureText: false,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(
-              right: SizeConfig.fixLil * 15, left: SizeConfig.fixLil * 15),
-          border: OutlineInputBorder(),
-          hintText: text,
-          hintStyle: TextStyle(color: Colors.black),
-        ),
-      ),
-    );
-  }
-
-  Container categoryContainer(String text) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 4,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      margin: EdgeInsets.all(SizeConfig.fixLil * 25),
-      padding: EdgeInsets.all(SizeConfig.fixLil * 25),
-      child: Text(
-        text,
-        textScaleFactor: SizeConfig.fixLilHor * 3,
-      ),
-    );
   }
 
   Future getImageFromGallery() async {
@@ -158,7 +108,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
             //Other Widgets
 
-            categoryContainer("Información General"),
+            ReusableWidgets.categoryContainer("Información General"),
 
             Container(
               margin: EdgeInsets.all(SizeConfig.fixLil * 30),
@@ -181,7 +131,7 @@ class RecipeScreenState extends State<RecipeScreen> {
               children: baseTextFormFields,
             ),
 
-            categoryContainer("¡Ingredientes!"),
+            ReusableWidgets.categoryContainer("¡Ingredientes!"),
 
             Column(
               children: ingredientTextFormFields,
@@ -198,15 +148,16 @@ class RecipeScreenState extends State<RecipeScreen> {
                 setState(() {
                   ingredientTextFieldControllers.add(TextEditingController());
                   int temp = ingredientTextFieldControllers.length;
-                  ingredientTextFormFields.add(textFormFieldCreator(
-                      ingredientTextFieldControllers[temp - 1],
-                      "Ingrediente " + temp.toString()));
+                  ingredientTextFormFields.add(
+                      ReusableWidgets.textFormFieldCreator(
+                          ingredientTextFieldControllers[temp - 1],
+                          "Ingrediente " + temp.toString()));
                 });
               },
               child: Icon(Icons.add),
             ),
 
-            categoryContainer("¡Pasos!"),
+            ReusableWidgets.categoryContainer("¡Pasos!"),
 
             Column(
               children: stepsTextFormFields,
@@ -223,7 +174,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                 setState(() {
                   stepsTextFieldControllers.add(TextEditingController());
                   int temp = stepsTextFieldControllers.length;
-                  stepsTextFormFields.add(textFormFieldCreator(
+                  stepsTextFormFields.add(ReusableWidgets.textFormFieldCreator(
                       stepsTextFieldControllers[temp - 1],
                       "Paso " + temp.toString()));
                 });
