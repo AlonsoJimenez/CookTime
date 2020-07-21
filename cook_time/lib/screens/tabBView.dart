@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/base64.dart';
+import 'package:cook_time/screens/businessCreatorScreen.dart';
 import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/notificationScreen.dart';
+import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/searchScreen.dart';
 import 'package:cook_time/screens/signInScreen.dart';
 import 'package:cook_time/screens/userScreen.dart';
@@ -64,9 +66,7 @@ class TabBViewState extends State<TabBView> {
                   SearchScreen(),
                   NotificationScreen(),
                   UserScreen(),
-                  Container(
-                    color: Colors.yellowAccent,
-                  ),
+                  BusinessCreatorScreen(),
                 ],
               ),
             ),
