@@ -135,6 +135,7 @@ class Recipe {
   List<String> ingridients;
   List<String> steps;
   List<String> comments;
+  List<int> publish;
   int difficulty;
 
   Recipe(
@@ -149,13 +150,15 @@ class Recipe {
       this.preparationMinutes,
       this.stars,
       this.steps,
-      this.tags});
+      this.tags,
+      this.publish});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     var jsonComments = json["comments"] as List;
     var jsonIngridients = json["ingridients"] as List;
     var jsonSteps = json["steps"] as List;
     var jsonTags = json["tags"] as List;
+    var jsonPublish = json["publish"] as List;
     return Recipe(
         author: json["author"] != null ? json["author"] : null,
         comments: jsonComments != null ? List.from(jsonComments) : null,
@@ -171,7 +174,8 @@ class Recipe {
             : null,
         stars: json["stars"] != null ? json["stars"] : null,
         steps: jsonSteps != null ? List.from(jsonSteps) : null,
-        tags: jsonTags != null ? List.from(jsonTags) : null);
+        tags: jsonTags != null ? List.from(jsonTags) : null,
+        publish: jsonPublish != null ? List.from(jsonPublish) : null);
   }
   Map<String, dynamic> toJson() => {
         "author": author,
@@ -185,7 +189,8 @@ class Recipe {
         "preparationMinutes": preparationMinutes,
         "stars": stars,
         "steps": steps,
-        "tags": tags
+        "tags": tags,
+        "publish": publish
       };
 }
 
@@ -201,6 +206,7 @@ class EnterpriseRecipe extends Recipe {
   List<String> ingridients;
   List<String> steps;
   List<String> comments;
+  List<int> publish;
   int difficulty;
   bool isPublic;
   int price;
@@ -218,6 +224,7 @@ class EnterpriseRecipe extends Recipe {
       this.stars,
       this.steps,
       this.tags,
+      this.publish,
       this.isPublic,
       this.price});
 
@@ -226,6 +233,7 @@ class EnterpriseRecipe extends Recipe {
     var jsonIngridients = json["ingridients"] as List;
     var jsonSteps = json["steps"] as List;
     var jsonTags = json["tags"] as List;
+    var jsonPublish = json["publish"] as List;
     return EnterpriseRecipe(
         author: json["author"] != null ? json["author"] : null,
         comments: jsonComments != null ? List.from(jsonComments) : null,
@@ -242,6 +250,7 @@ class EnterpriseRecipe extends Recipe {
         stars: json["stars"] != null ? json["stars"] : null,
         steps: jsonSteps != null ? List.from(jsonSteps) : null,
         tags: jsonTags != null ? List.from(jsonTags) : null,
+        publish: jsonPublish != null ? List.from(jsonPublish) : null,
         isPublic: json["isPublic"] != null ? json["isPublic"] : null,
         price: json["price"] != null ? json["price"] : null);
   }
@@ -259,6 +268,7 @@ class EnterpriseRecipe extends Recipe {
         "stars": stars,
         "steps": steps,
         "tags": tags,
+        "publish": publish,
         "price": price,
         "isPublic": isPublic
       };
