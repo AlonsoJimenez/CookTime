@@ -43,13 +43,18 @@ Future<User> profile(String user, String password) async {
   }
 }
 
-Future<http.Response> notifications(String user, String password) {
+Future<List<String>> notifications(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
+  final response = await http.get(
     "http://10.0.2.2:9080/CookTimeServer/rest/user/notifications",
     // Send authorization headers to the backend.
     headers: <String, String>{"authorization": author},
   );
+  if (response.statusCode == 200) {
+    return List.from(json.decode(response.body.toString()));
+  } else {
+    throw Exception("Error loading notifications");
+  }
 }
 
 Future<http.Response> companies(String user, String password) {

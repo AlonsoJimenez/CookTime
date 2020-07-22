@@ -1,13 +1,21 @@
 import 'dart:convert';
-import 'dart:io';
 //import 'dart:html';
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
+
+import '../objects.dart';
+
+List<String> toStringList(List<TextEditingController> controllers) {
+  List<String> toReturn = new List<String>();
+  for (TextEditingController control in controllers) {
+    toReturn.add(control.text);
+  }
+  return toReturn;
+}
 
 class RecipeScreen extends StatefulWidget {
   @override
@@ -55,6 +63,7 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   Future getImageFromGallery() async {
+    // ignore: deprecated_member_use
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       base64 = base64Encode(image.readAsBytesSync());
@@ -114,7 +123,7 @@ class RecipeScreenState extends State<RecipeScreen> {
               margin: EdgeInsets.all(SizeConfig.fixLil * 30),
               child: Column(
                 children: [
-                  Text("¿Receta privada?"),
+                  Text("¿Receta privada? (solo empresa)"),
                   Switch(
                     value: private,
                     onChanged: (value) {
@@ -189,7 +198,31 @@ class RecipeScreenState extends State<RecipeScreen> {
               textColor: Colors.white,
               elevation: 5.0,
               onPressed: () {
-                print("Enviar Receta");
+                DateTime now = new DateTime.now();
+                List<String> tags = new List<String>();
+                tags.add(baseTextFieldControllers[4].text);
+                Recipe toSend = Recipe(
+                    author: userForEveryone,
+                    publish: [now.day, now.month, now.year],
+                    comments: [],
+                    stars: 5,
+                    imageBytes: base64,
+                    tags: tags,
+                    dishType: baseTextFieldControllers[1].text,
+                    dishName: baseTextFieldControllers[0].text,
+                    preparationMinutes:
+                        int.parse(baseTextFieldControllers[2].text),
+                    difficulty: int.parse(baseTextFieldControllers[3].text),
+                    steps: toStringList(stepsTextFieldControllers),
+                    ingridients: toStringList(ingredientTextFieldControllers),
+                    portionsSize: 4);
+                postRecipe(userForEveryone, passwordForEveryone, toSend)
+                    .then((response) => {
+                          if (response.statusCode == 200)
+                            {Navigator.pushNamed(context, '/screens')}
+                          else
+                            {throw Exception("Error sending data")}
+                        });
               },
               child: Text("Enviar Receta"),
             ),
