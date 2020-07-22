@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class BusinessCreatorScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class BusinessCreatorScreen extends StatefulWidget {
 }
 
 class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
+  GoogleMapController myController;
   String base64;
 
   var baseTextFieldControllers = List<TextEditingController>();
@@ -41,6 +43,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     initTextFormField();
 
     return Container(
@@ -72,8 +75,8 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
                 : GestureDetector(
                     child: Container(
                       margin: EdgeInsets.all(SizeConfig.fixLil * 60),
-                      height: SizeConfig.fixAllVer * 2.5,
-                      width: SizeConfig.fixAllHor * 6,
+                      height: SizeConfig.fixAllVer * 3,
+                      width: double.infinity,
                       color: Colors.blue,
                       child: FittedBox(
                         fit: BoxFit.fill,
@@ -93,15 +96,17 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
             Container(
               margin: EdgeInsets.all(SizeConfig.fixLil * 60),
               padding: EdgeInsets.all(SizeConfig.fixLil * 15),
-              height: SizeConfig.fixAllVer * 2.5,
-              width: SizeConfig.fixAllHor * 6,
+              height: SizeConfig.fixAllVer * 4,
+              width: SizeConfig.fixAllHor * 10,
               color: Colors.blue,
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  "¡Tap para agregar una ubicación!",
-                  style: TextStyle(color: Colors.white),
-                ),
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(9.9356284, -84.1483645), zoom: 15.0),
+                onMapCreated: (controller) {
+                  setState(() {
+                    myController = controller;
+                  });
+                },
               ),
             ),
           ],

@@ -30,7 +30,9 @@ class RecipeScreenState extends State<RecipeScreen> {
   List text = [
     "Nombre de la receta",
     "Tipo de plato (Desayuno, Almuerzo...)",
-    "Tiempo (Numero de minutos)",
+    "Porcion (para cuantas personas)",
+    "Duración de preparación (Numero en minutos)",
+    "Tiempo (Aperitivo, Plato fuerte...)",
     "Dificultad (Numero)",
     "Tags por dieta (Vegano, Kosher...)",
     "Precio (Obligatorio para empresas)"
@@ -38,7 +40,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   void initTextFormField() {
     if (baseTextFieldControllers.length == 0) {
-      for (int x = 0; x < 6; x++) {
+      for (int x = 0; x < text.length; x++) {
         baseTextFieldControllers.add(TextEditingController());
         baseTextFormFields.add(ReusableWidgets.textFormFieldCreator(
             baseTextFieldControllers[x], text[x]));

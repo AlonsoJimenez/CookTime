@@ -1,3 +1,5 @@
+import 'package:cook_time/screens/businessCreatorScreen.dart';
+import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/signInScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +17,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
       ),
       //initialRoute: '/login',
-      initialRoute: '/screens',
+      //initialRoute: '/screens',
+      initialRoute: '/businesscreator',
       routes: {
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),
         '/signin': (context) => SignInScreen(),
+        '/recipe': (context) => RecipeScreen(),
+        '/businesscreator': (context) => Material(
+              child: BusinessCreatorScreen(),
+            ),
       },
     );
   }
