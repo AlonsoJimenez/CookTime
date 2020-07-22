@@ -1,10 +1,13 @@
 import 'package:cook_time/screens/businessCreatorScreen.dart';
+import 'package:cook_time/screens/publicUserScreen.dart';
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/signInScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cook_time/screens/tabBView.dart';
 import 'package:cook_time/screens/login.dart';
+
+import 'screens/userEditScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,13 +20,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
       ),
       //initialRoute: '/login',
-      //initialRoute: '/screens',
-      initialRoute: '/businesscreator',
+      initialRoute: '/login',
       routes: {
+        '/recipe': (context) => Material(child: RecipeScreen()),
+        '/user': (context) => Material(child: PublicUserScreen()),
+        '/editUser': (context) => Material(child: UserEditScreen()),
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),
         '/signin': (context) => SignInScreen(),
-        '/recipe': (context) => RecipeScreen(),
         '/businesscreator': (context) => Material(
               child: BusinessCreatorScreen(),
             ),

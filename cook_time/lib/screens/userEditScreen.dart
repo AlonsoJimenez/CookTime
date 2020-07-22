@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:cook_time/future.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../objects.dart';
 
 class UserEditScreen extends StatefulWidget {
   @override
@@ -73,7 +76,36 @@ class UserEditScreenState extends State<UserEditScreen> {
                       },
                     ),
               ReusableWidgets.textFormFieldCreator(
-                  profileController, "Agrega un nuevo texto a tu perfil")
+                  profileController, "Agrega un nuevo texto a tu perfil"),
+              RaisedButton(
+                disabledColor: Colors.blueGrey,
+                disabledTextColor: Colors.black,
+                color: Colors.purpleAccent,
+                textColor: Colors.white,
+                elevation: 5.0,
+                onPressed: () {
+                  User toSend;
+                  profile(userForEveryone, passwordForEveryone)
+                      .then((userCatch) => {
+                            toSend = userCatch,
+                            toSend.imageBytes = base64,
+                            toSend.profileDescription = profileController.text,
+                            toSend.password = passwordForEveryone,
+                            updateUser(userForEveryone, passwordForEveryone,
+                                    toSend)
+                                .then((response) => {
+                                      if (response.statusCode == 200)
+                                        {
+                                          Navigator.pushNamed(
+                                              context, '/screens')
+                                        }
+                                      else
+                                        {throw Exception("Error sending data")}
+                                    })
+                          });
+                },
+                child: Text("Editar usuario"),
+              ),
             ],
           ),
         ),

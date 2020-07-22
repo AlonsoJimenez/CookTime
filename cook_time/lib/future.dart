@@ -51,8 +51,8 @@ Future<List<String>> notifications(String user, String password) async {
     headers: <String, String>{"authorization": author},
   );
   if (response.statusCode == 200) {
-    var listing = json.decode(response.body);
-    return listing != null ? List<String>.from(listing) : null;
+    var listing = json.decode(response.body) as List;
+    return listing != null ? List.from(listing) : null;
   } else {
     print("lmnno");
     throw Exception("Error loading notifications");

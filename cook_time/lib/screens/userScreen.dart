@@ -56,6 +56,45 @@ class UserScreenState extends State<UserScreen> {
                   },
                 )),
           ),
+          SizedBox(
+            height: 110,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    )
+                  ],
+                ),
+                margin: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
+                padding: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
+                child: Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blue)),
+                      disabledColor: Colors.blueGrey,
+                      disabledTextColor: Colors.black,
+                      color: Colors.white,
+                      textColor: Colors.black,
+                      elevation: 5.0,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/editUser');
+                      },
+                      child: Text("Editar Perfil"),
+                    ),
+                  ],
+                )),
+          )
         ],
       ),
     );
@@ -123,6 +162,22 @@ class UserScreenState extends State<UserScreen> {
                 Navigator.pushNamed(context, '/recipe');
               },
               child: Text("Nueva Receta"),
+            ),
+          ),
+          Container(
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.blue)),
+              disabledColor: Colors.blueGrey,
+              disabledTextColor: Colors.black,
+              color: Colors.white,
+              textColor: Colors.black,
+              elevation: 5.0,
+              onPressed: () {
+                Navigator.pushNamed(context, '/businesscreator');
+              },
+              child: Text("Nueva Empresa"),
             ),
           ),
         ],

@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:cook_time/logic/sizeConfig.dart';
+import 'package:cook_time/objects.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../future.dart';
 
 class BusinessCreatorScreen extends StatefulWidget {
   @override
@@ -108,6 +111,31 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
                   });
                 },
               ),
+            ),
+            RaisedButton(
+              disabledColor: Colors.blueGrey,
+              disabledTextColor: Colors.black,
+              color: Colors.purpleAccent,
+              textColor: Colors.white,
+              elevation: 5.0,
+              onPressed: () {
+                Enterprise toSend = Enterprise(
+                    contactInfo: baseTextFieldControllers[1].text,
+                    enterpriseName: baseTextFieldControllers[0].text,
+                    followers: [],
+                    members: [userForEveryone],
+                    operationHours: baseTextFieldControllers[2].text,
+                    recipes: [],
+                    imageBytes: base64);
+                postCompany(userForEveryone, passwordForEveryone, toSend)
+                    .then((response) => {
+                          if (response.statusCode == 200)
+                            {Navigator.pushNamed(context, '/screens')}
+                          else
+                            {throw Exception("Error sending data")}
+                        });
+              },
+              child: Text("Crear Empresa"),
             ),
           ],
         ),
