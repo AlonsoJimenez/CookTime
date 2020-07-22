@@ -16,19 +16,99 @@ class NewsScreen extends StatefulWidget {
 class NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.center,
-        child: FutureBuilder<List<Recipe>>(
-          future: newsfeed(userForEveryone, passwordForEveryone),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return gettingNews(snapshot.data);
-            } else if (snapshot.hasError) {
-              return Text("No news");
-            }
-            return CircularProgressIndicator();
-          },
-        ));
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 4,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ],
+          ),
+          margin: EdgeInsets.all(SizeConfig.fixLil * 25),
+          padding: EdgeInsets.all(SizeConfig.fixLil * 25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                disabledColor: Colors.blueGrey,
+                disabledTextColor: Colors.black,
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                elevation: 5.0,
+                onPressed: () {
+                  setState(() {
+                    print("Ordenar Newsfeed pres");
+                  });
+                },
+                child: Text("Fecha"),
+              ),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                disabledColor: Colors.blueGrey,
+                disabledTextColor: Colors.black,
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                elevation: 5.0,
+                onPressed: () {
+                  setState(() {
+                    print("Ordenar Newsfeed pres");
+                  });
+                },
+                child: Text("Estrellas"),
+              ),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                disabledColor: Colors.blueGrey,
+                disabledTextColor: Colors.black,
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                elevation: 5.0,
+                onPressed: () {
+                  setState(() {
+                    print("Ordenar Newsfeed pres");
+                  });
+                },
+                child: Text("Dificultad"),
+              ),
+            ],
+          ),
+        ),
+
+        //Widget lista que contiene las noticias.
+        Container(
+            alignment: Alignment.center,
+            child: FutureBuilder<List<Recipe>>(
+              future: newsfeed(userForEveryone, passwordForEveryone),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return gettingNews(snapshot.data);
+                } else if (snapshot.hasError) {
+                  return Text("No news");
+                }
+                return CircularProgressIndicator();
+              },
+            )),
+      ],
+    );
   }
 }
 

@@ -1,0 +1,215 @@
+import 'dart:convert';
+
+import 'package:cook_time/logic/base64.dart';
+import 'package:cook_time/logic/sizeConfig.dart';
+import 'package:cook_time/screens/reusableWidgets.dart';
+import 'package:flutter/material.dart';
+
+class RecipeViewScreen extends StatefulWidget {
+  @override
+  State<RecipeViewScreen> createState() => RecipeViewScreenState();
+}
+
+class RecipeViewScreenState extends State<RecipeViewScreen> {
+  String base64 = Base64.base64s;
+  var stepsContainers = List<Widget>();
+  var ingredientContainers = List<Widget>();
+  var commentsContainers = List<Widget>();
+
+  TextEditingController commentController;
+  double stars = 0;
+
+  List base = [
+    "Nombre de la receta: ",
+    "Tipo de plato: ",
+    "Porcion: ",
+    "Tiempo: ",
+    "Dificultad: ",
+    "Tags por dieta: ",
+    "Precio: "
+  ];
+
+//Mae, cambie esta lista por la lista de pasos real, o sea con el mismo nombre.
+  List steps = [
+    "Paso 1",
+    "Paso 2",
+    "Paso 3",
+    "Paso 4",
+    "Paso 5",
+    "Paso 6",
+  ];
+
+//Mae, cambie esta lista por la lista de ingredientes real, o sea con el mismo nombre.
+  List ingredients = [
+    "Ingrediente 1",
+    "Ingrediente 2",
+    "Ingrediente 3",
+    "Ingrediente 4",
+    "Ingrediente 5",
+    "Ingrediente 6",
+  ];
+
+  //Mae, cambie esta lista por la lista de comentarios real, o sea con el mismo nombre.
+  List comments = [
+    "David: Brutal",
+    "Alonso: Que buen pan",
+    "X_JulioProfe_X: Crack",
+    "Tíofav: Quiero uno!",
+    "Elena: Qué rico",
+    "Elon Musk: Esperando al café!",
+  ];
+
+  void initContainers() {
+    if (stepsContainers.length == 0) {
+      for (int x = 0; x < steps.length; x++) {
+        stepsContainers.add(ReusableWidgets.infoContainer(
+            "Paso " + (x + 1).toString(), steps[x]));
+      }
+    }
+
+    if (ingredientContainers.length == 0) {
+      for (int x = 0; x < ingredients.length; x++) {
+        ingredientContainers.add(ReusableWidgets.infoContainer(
+            "Ingrediente " + (x + 1).toString(), ingredients[x]));
+      }
+    }
+    if (commentsContainers.length == 0) {
+      for (int x = 0; x < comments.length; x++) {
+        commentsContainers.add(ReusableWidgets.infoContainer(
+            ReusableWidgets.divider(comments[x], true),
+            ReusableWidgets.divider(comments[x], false)));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    initContainers();
+
+    return Material(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: SizeConfig.fixAllVer * 4,
+              width: SizeConfig.fixAllVer * 6.2,
+              margin: EdgeInsets.only(
+                  right: SizeConfig.fixLil * 80,
+                  top: SizeConfig.fixLil * 80,
+                  left: SizeConfig.fixLil * 80),
+              color: Colors.blue,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: Image.memory(base64Decode(base64)),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                  right: SizeConfig.fixLilHor * 54,
+                  left: SizeConfig.fixLilHor * 54),
+              child: Row(
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Icon(Icons.star_border, color: Colors.blueAccent),
+                        //REMPLAZAR LA STRING CON EL VALOR DEL API
+                        Text("4.7")
+                      ],
+                    ),
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.timer,
+                        color: Colors.blueAccent,
+                      ),
+                      //REMPLAZAR LA STRING CON EL VALOR DEL API
+                      Text("128" + "m"),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            //Aquí cambie las Strings por el valor real según orden (véase la lista "Base" para el orden)
+            ReusableWidgets.infoContainer(base[0], "Pan Francés"),
+            ReusableWidgets.infoContainer(base[1], "Para el cafecito"),
+            ReusableWidgets.infoContainer(base[2], "6 personas"),
+            ReusableWidgets.infoContainer(base[3], "Aperitivo"),
+            ReusableWidgets.infoContainer(base[4], "7"),
+            ReusableWidgets.infoContainer(base[5], "Vegano"),
+            ReusableWidgets.infoContainer(base[6], "6 dólares"),
+            //
+
+            ReusableWidgets.categoryContainer("Ingredientes:"),
+            Column(children: ingredientContainers),
+            ReusableWidgets.categoryContainer("Pasos:"),
+            Column(children: stepsContainers),
+
+            ReusableWidgets.categoryContainer("Comentarios:"),
+            Column(children: commentsContainers),
+
+            ReusableWidgets.categoryContainer("¡Puntúa y Comenta aquí abajo!"),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 4,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  )
+                ],
+              ),
+              margin: EdgeInsets.all(SizeConfig.fixLil * 25),
+              padding: EdgeInsets.all(SizeConfig.fixLil * 25),
+              child: Column(
+                children: [
+                  Text("Puntúa de 0 a 5:"),
+                  Slider(
+                    value: stars,
+                    divisions: 5,
+                    min: 0,
+                    max: 5,
+                    onChanged: (value) {
+                      setState(() {
+                        stars = value;
+                      });
+                    },
+                    label: stars.toInt().toString(),
+                  ),
+                  ReusableWidgets.textFormFieldCreator(
+                      commentController, "Escribe tu comentario aqui"),
+                  RaisedButton(
+                    disabledColor: Colors.blueGrey,
+                    disabledTextColor: Colors.black,
+                    color: Colors.blueAccent,
+                    textColor: Colors.white,
+                    elevation: 5.0,
+                    onPressed: () {
+                      setState(() {
+                        print("Enviar comentario presionado");
+                      });
+                    },
+                    child: Text("Enviar"),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
