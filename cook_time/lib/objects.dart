@@ -14,6 +14,7 @@ class User {
   List<String> following;
   List<Enterprise> companies;
   List<String> followingComp;
+  List<String> recipes;
 
   User(
       {this.isChef,
@@ -28,7 +29,8 @@ class User {
       this.followers,
       this.following,
       this.followingComp,
-      this.myMenu});
+      this.myMenu,
+      this.recipes});
 
   factory User.fromJson(Map<String, dynamic> json) {
     var jsonCompanies = json["companies"] as List;
@@ -36,6 +38,7 @@ class User {
     var jsonFollowing = json["following"] as List;
     var jsonMenu = json["myMenu"] as List;
     var jsonComp = json["followingComp"] as List;
+    var jsonRecipes = json["recipes"] as List;
     return User(
         isChef: json["isChef"] != null ? json["isChef"] : null,
         age: json["age"] != null ? json["age"] : null,
@@ -55,7 +58,8 @@ class User {
             ? jsonCompanies
                 .map((variableJson) => Enterprise.fromJson(variableJson))
                 .toList()
-            : null);
+            : null,
+        recipes: jsonRecipes != null ? List.from(jsonRecipes) : null);
   }
 
   Map<String, dynamic> toJson() => {
@@ -72,6 +76,7 @@ class User {
         "following": following,
         "followingComp": followingComp,
         "myMenu": myMenu,
+        "recipes": recipes
       };
 }
 

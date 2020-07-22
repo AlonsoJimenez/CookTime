@@ -8,8 +8,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
-  get passwordForEveryone => null;
-
   @override
   Widget build(BuildContext context) {
     return Container(

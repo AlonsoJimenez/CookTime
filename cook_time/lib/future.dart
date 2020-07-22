@@ -29,6 +29,41 @@ Future<List<Recipe>> newsfeed(String user, String password) async {
   }
 }
 
+Future<List<EnterpriseRecipe>> ownCompany(
+    String user, String password, String name) async {
+  String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
+  final response = await http.get(
+    "http://10.0.2.2:9080/CookTimeServer/rest/company/menu/$name",
+    // Send authorization headers to the backend.
+    headers: <String, String>{"authorization": author},
+  );
+  if (response.statusCode == 200) {
+    var listing = json.decode(response.body.toString()) as List;
+    return listing != null
+        ? listing.map((value) => EnterpriseRecipe.fromJson(value)).toList()
+        : null;
+  } else {
+    throw Exception("Error loading");
+  }
+}
+
+Future<List<Recipe>> ownUser(String user, String password) async {
+  String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
+  final response = await http.get(
+    "http://10.0.2.2:9080/CookTimeServer/rest/user/own",
+    // Send authorization headers to the backend.
+    headers: <String, String>{"authorization": author},
+  );
+  if (response.statusCode == 200) {
+    var listing = json.decode(response.body.toString()) as List;
+    return listing != null
+        ? listing.map((value) => Recipe.fromJson(value)).toList()
+        : null;
+  } else {
+    throw Exception("Error loading");
+  }
+}
+
 Future<User> profile(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -51,8 +86,8 @@ Future<List<String>> notifications(String user, String password) async {
     headers: <String, String>{"authorization": author},
   );
   if (response.statusCode == 200) {
-    var listing = json.decode(response.body);
-    return listing != null ? List<String>.from(listing) : null;
+    var listing = json.decode(response.body) as List;
+    return listing != null ? List.from(listing) : null;
   } else {
     print("lmnno");
     throw Exception("Error loading notifications");
