@@ -185,12 +185,12 @@ class Recipe {
         "dishType": dishType,
         "imageBytes": imageBytes,
         "ingridients": ingridients,
-        "portionSize": portionsSize,
+        "portionsSize": portionsSize,
         "preparationMinutes": preparationMinutes,
         "stars": stars,
         "steps": steps,
         "tags": tags,
-        "publish": publish
+        "publish": publish,
       };
 }
 
