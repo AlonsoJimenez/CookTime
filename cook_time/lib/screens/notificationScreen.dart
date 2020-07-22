@@ -39,15 +39,16 @@ ListView gettingNotifications(List<String> notify) {
       children: addToNews,
     );
   } else {
-    return ListView(
-        children: <Widget>[Text("No news to show"), Text("Get some friend")]);
+    return ListView(children: <Widget>[
+      Text("No new notifications"),
+      Text("Refresh later for more")
+    ]);
   }
 }
 
-Container notification(String dataNews) {
-  return Container(
-      child: SizedBox(
+SizedBox notification(String dataNews) {
+  return SizedBox(
     height: 110,
     child: Text(dataNews),
-  ));
+  );
 }

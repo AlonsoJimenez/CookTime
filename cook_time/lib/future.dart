@@ -51,19 +51,31 @@ Future<List<String>> notifications(String user, String password) async {
     headers: <String, String>{"authorization": author},
   );
   if (response.statusCode == 200) {
-    return List.from(json.decode(response.body.toString()));
+    var listing = json.decode(response.body);
+    return listing != null ? List<String>.from(listing) : null;
   } else {
+    print("lmnno");
     throw Exception("Error loading notifications");
   }
 }
 
-Future<http.Response> companies(String user, String password) {
+Future<List<Enterprise>> companies(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
+  final response = await http.get(
     "http://10.0.2.2:9080/CookTimeServer/rest/user/companies",
     // Send authorization headers to the backend.
     headers: <String, String>{"authorization": author},
   );
+  if (response.statusCode == 200) {
+    var listRet = json.decode(response.body.toString()) as List;
+    return listRet != null
+        ? listRet
+            .map((variableJson) => Enterprise.fromJson(variableJson))
+            .toList()
+        : null;
+  } else {
+    throw Exception("Error loading notifications");
+  }
 }
 
 Future<http.Response> byStars(String user, String password) {
