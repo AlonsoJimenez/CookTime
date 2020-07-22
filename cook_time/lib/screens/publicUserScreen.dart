@@ -9,12 +9,14 @@ import 'package:flutter/material.dart';
 
 import '../objects.dart';
 
-class UserScreen extends StatefulWidget {
+User toShow;
+
+class PublicUserScreen extends StatefulWidget {
   @override
-  State<UserScreen> createState() => UserScreenState();
+  State<PublicUserScreen> createState() => PublicUserState();
 }
 
-class UserScreenState extends State<UserScreen> {
+class PublicUserState extends State<PublicUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,11 +73,11 @@ class UserScreenState extends State<UserScreen> {
             color: Colors.blue,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Image.memory(base64Decode(profileInfo.imageBytes)),
+              child: Image.memory(base64Decode(toShow.imageBytes)),
             ),
           ),
           Text(
-            profileInfo.name,
+            toShow.name,
             textScaleFactor: SizeConfig.fixLil * 3,
             style: TextStyle(color: Colors.deepPurple),
           )
@@ -90,8 +92,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               Column(
                 children: [
-                  Text(profileInfo.followers != null
-                      ? profileInfo.followers.length.toString()
+                  Text(toShow.followers != null
+                      ? toShow.followers.length.toString()
                       : "0"),
                   Text("Seguidores"),
                 ],
@@ -101,29 +103,13 @@ class UserScreenState extends State<UserScreen> {
               ),
               Column(
                 children: [
-                  Text(profileInfo.following != null
-                      ? profileInfo.following.length.toString()
+                  Text(toShow.following != null
+                      ? toShow.following.length.toString()
                       : "0"),
                   Text("Siguiendo"),
                 ],
               ),
             ],
-          ),
-          Container(
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.blue)),
-              disabledColor: Colors.blueGrey,
-              disabledTextColor: Colors.black,
-              color: Colors.white,
-              textColor: Colors.black,
-              elevation: 5.0,
-              onPressed: () {
-                Navigator.pushNamed(context, '/recipe');
-              },
-              child: Text("Nueva Receta"),
-            ),
           ),
         ],
       ),

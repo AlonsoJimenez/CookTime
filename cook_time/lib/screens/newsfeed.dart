@@ -24,7 +24,7 @@ class NewsScreenState extends State<NewsScreen> {
             if (snapshot.hasData) {
               return gettingNews(snapshot.data);
             } else if (snapshot.hasError) {
-              return Text("Error loading data");
+              return Text("No news");
             }
             return CircularProgressIndicator();
           },
@@ -195,14 +195,4 @@ Container news(Recipe recipe) {
       ],
     ),
   );
-}
-
-String breteador(String brete, String indice) {
-  String res = "";
-  int cont = brete.indexOf(indice, 0) + indice.length + 4;
-  while (brete[cont] != "\"") {
-    res += brete[cont];
-    cont++;
-  }
-  return res;
 }
