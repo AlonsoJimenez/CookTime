@@ -6,6 +6,7 @@ import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import '../objects.dart';
 
@@ -94,10 +95,88 @@ class UserScreenState extends State<UserScreen> {
                     ),
                   ],
                 )),
+          ),
+          FutureBuilder<List<Recipe>>(
+            future: ownUser(userForEveryone, passwordForEveryone),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Widget> adding = new List<Widget>();
+                for (Recipe recipe in snapshot.data) {
+                  adding.add(recipeResearch(recipe));
+                }
+                return ListView(
+                  children: snapshot.data != null
+                      ? adding
+                      : [Text("No recipes to show")],
+                );
+              } else if (snapshot.hasError) {
+                return ListView(
+                  children: <Widget>[Text("Error loading Data")],
+                );
+              }
+              return CircularProgressIndicator();
+            },
           )
         ],
       ),
     );
+  }
+
+  SizedBox recipeResearch(Recipe recipe) {
+    return SizedBox(
+        height: 110,
+        child: Container(
+          margin: EdgeInsets.all(SizeConfig.fixLil * 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                    height: SizeConfig.fixAllVer * 0.8,
+                    width: SizeConfig.fixAllHor * 2,
+                    color: Colors.blue,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.memory(base64Decode(recipe.imageBytes)),
+                    )),
+                onDoubleTap: () {},
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(recipe.dishName),
+                  Text(recipe.author),
+                ],
+              ),
+              Text(recipe.stars.toString())
+            ],
+          ),
+        ));
+  }
+
+  IconData typeUser(bool isChef) {
+    if (isChef) {
+      return Icons.verified_user;
+    } else {
+      return Icons.person;
+    }
   }
 
   Row userTop(User profileInfo) {
@@ -113,10 +192,29 @@ class UserScreenState extends State<UserScreen> {
               child: Image.memory(base64Decode(profileInfo.imageBytes)),
             ),
           ),
-          Text(
-            profileInfo.name,
-            textScaleFactor: SizeConfig.fixLil * 3,
-            style: TextStyle(color: Colors.deepPurple),
+          Row(children: [
+            Text(
+              profileInfo.name,
+              textScaleFactor: SizeConfig.fixLil * 3,
+              style: TextStyle(color: Colors.deepPurple),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Icon(typeUser(profileInfo.isChef))
+          ]),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                  profileInfo.profileDescription != null
+                      ? profileInfo.profileDescription
+                      : "",
+                  style: TextStyle(color: Colors.blueAccent)),
+              Text(profileInfo.age.toString())
+            ],
           )
         ],
       ),
