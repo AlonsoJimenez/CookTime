@@ -204,20 +204,21 @@ class RecipeScreenState extends State<RecipeScreen> {
                 List<String> tags = new List<String>();
                 tags.add(baseTextFieldControllers[4].text);
                 Recipe toSend = Recipe(
-                    author: userForEveryone,
-                    publish: [now.day, now.month, now.year],
-                    comments: [],
-                    stars: 5,
-                    imageBytes: base64,
-                    tags: tags,
-                    dishType: baseTextFieldControllers[1].text,
-                    dishName: baseTextFieldControllers[0].text,
-                    preparationMinutes:
-                        int.parse(baseTextFieldControllers[2].text),
-                    difficulty: int.parse(baseTextFieldControllers[3].text),
-                    steps: toStringList(stepsTextFieldControllers),
-                    ingridients: toStringList(ingredientTextFieldControllers),
-                    portionsSize: 4);
+                  author: userForEveryone,
+                  publish: [now.day, now.month, now.year],
+                  comments: [],
+                  stars: 5,
+                  imageBytes: base64,
+                  tags: tags,
+                  dishType: baseTextFieldControllers[1].text,
+                  dishName: baseTextFieldControllers[0].text,
+                  preparationMinutes:
+                      int.parse(baseTextFieldControllers[2].text),
+                  difficulty: int.parse(baseTextFieldControllers[3].text),
+                  steps: toStringList(stepsTextFieldControllers),
+                  ingridients: toStringList(ingredientTextFieldControllers),
+                  portionsSize: 4,
+                );
                 postRecipe(userForEveryone, passwordForEveryone, toSend)
                     .then((response) => {
                           if (response.statusCode == 200)

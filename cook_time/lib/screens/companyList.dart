@@ -1,6 +1,9 @@
 import 'package:cook_time/future.dart';
+import 'package:cook_time/screens/businessAdmScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
+
+String companySearch;
 
 class CompaniesList extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class CompaniesListState extends State<CompaniesList> {
           future: companies(userForEveryone, passwordForEveryone),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return gettingNews(snapshot.data);
+              return getCompanies(snapshot.data, context);
             } else if (snapshot.hasError) {
               return Text("Error loading data");
             }
@@ -26,12 +29,12 @@ class CompaniesListState extends State<CompaniesList> {
   }
 }
 
-ListView gettingNews(List<Enterprise> companies) {
+ListView getCompanies(List<Enterprise> companies, BuildContext context) {
   List<Widget> addToNews = new List<Widget>();
   if (companies.length != 0) {
     for (Enterprise company in companies) {
       addToNews.add(SizedBox(height: 20));
-      addToNews.add(selectCompany(company));
+      addToNews.add(selectCompany(company, context));
     }
     return ListView(
       children: addToNews,
@@ -44,11 +47,14 @@ ListView gettingNews(List<Enterprise> companies) {
   }
 }
 
-SizedBox selectCompany(Enterprise company) {
+SizedBox selectCompany(Enterprise company, BuildContext context) {
   return SizedBox(
     child: GestureDetector(
       child: Text(company.enterpriseName),
-      onTap: () {},
+      onTap: () {
+        companySearch = company.enterpriseName;
+        Navigator.pushNamed(context, '/businessAdm');
+      },
     ),
     height: 110,
   );

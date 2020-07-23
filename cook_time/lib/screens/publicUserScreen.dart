@@ -7,7 +7,6 @@ import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
-
 import '../objects.dart';
 
 User toShow;
@@ -48,7 +47,8 @@ class PublicUserState extends State<PublicUserScreen> {
                 margin: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
                 padding: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
                 child: FutureBuilder<User>(
-                  future: profile(userForEveryone, passwordForEveryone),
+                  future: profileSearch(
+                      userForEveryone, passwordForEveryone, toShow.email),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return userTop(snapshot.data);
