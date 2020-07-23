@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cook_time/future.dart';
 import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
+import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cook_time/logic/sizeConfig.dart';
@@ -18,23 +19,7 @@ class NewsScreenState extends State<NewsScreen> {
     return Column(
       children: [
         Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 4,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              )
-            ],
-          ),
+          decoration: ReusableWidgets.genericBoxDecoration(),
           margin: EdgeInsets.all(SizeConfig.fixLil * 25),
           padding: EdgeInsets.all(SizeConfig.fixLil * 25),
           child: Row(

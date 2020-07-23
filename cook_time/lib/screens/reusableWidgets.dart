@@ -27,23 +27,7 @@ class ReusableWidgets {
 
   static Container categoryContainer(String text) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 4,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
+      decoration: genericBoxDecoration(),
       margin: EdgeInsets.all(SizeConfig.fixLil * 25),
       padding: EdgeInsets.all(SizeConfig.fixLil * 25),
       child: Text(
@@ -55,23 +39,7 @@ class ReusableWidgets {
 
   static Container infoContainer(String tittle, String bot) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 4,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
+      decoration: genericBoxDecoration(),
       margin: EdgeInsets.all(SizeConfig.fixLil * 25),
       padding: EdgeInsets.all(SizeConfig.fixLil * 25),
       child: Column(
@@ -100,5 +68,45 @@ class ReusableWidgets {
       res = todiv.split(":")[1];
     }
     return res;
+  }
+
+  static BoxDecoration genericBoxDecoration() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+        bottomLeft: Radius.circular(10),
+        bottomRight: Radius.circular(10),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 4,
+          blurRadius: 7,
+          offset: Offset(0, 3),
+        )
+      ],
+    );
+  }
+
+  static BoxDecoration blueBoxDecoration() {
+    return BoxDecoration(
+      color: Colors.blue,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+        bottomLeft: Radius.circular(10),
+        bottomRight: Radius.circular(10),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 4,
+          blurRadius: 7,
+          offset: Offset(0, 3),
+        )
+      ],
+    );
   }
 }
