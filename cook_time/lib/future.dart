@@ -261,7 +261,7 @@ Future<http.Response> newComment(
 }
 
 Future<http.Response> newRate(
-    String user, String password, String recipe, int star) {
+    String user, String password, String recipe, double star) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   return http.post(
     "http://10.0.2.2:9080/CookTimeServer/rest/user/stars/$recipe?rate=$star",

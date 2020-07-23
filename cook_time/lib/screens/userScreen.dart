@@ -1,13 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/login.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
 import '../objects.dart';
 
 class UserScreen extends StatefulWidget {

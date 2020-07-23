@@ -131,7 +131,7 @@ class Enterprise {
 class Recipe {
   String author;
   String imageBytes;
-  int stars;
+  double stars;
   String dishName;
   int portionsSize;
   int preparationMinutes;
@@ -142,6 +142,7 @@ class Recipe {
   List<String> comments;
   List<int> publish;
   int difficulty;
+  int price = 0;
 
   Recipe(
       {this.author,
@@ -202,7 +203,7 @@ class Recipe {
 class EnterpriseRecipe extends Recipe {
   String author;
   String imageBytes;
-  int stars;
+  double stars;
   String dishName;
   int portionsSize;
   int preparationMinutes;

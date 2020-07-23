@@ -1,9 +1,12 @@
 import 'dart:convert';
-
+import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
+import '../objects.dart';
+
+Recipe toVisit;
 
 class RecipeViewScreen extends StatefulWidget {
   @override
@@ -16,7 +19,9 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
   var ingredientContainers = List<Widget>();
   var commentsContainers = List<Widget>();
 
-  TextEditingController commentController;
+  static final TextEditingController commentController =
+      new TextEditingController();
+
   double stars = 0;
 
   List base = [
@@ -29,35 +34,11 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
     "Precio: "
   ];
 
-//Mae, cambie esta lista por la lista de pasos real, o sea con el mismo nombre.
-  List steps = [
-    "Paso 1",
-    "Paso 2",
-    "Paso 3",
-    "Paso 4",
-    "Paso 5",
-    "Paso 6",
-  ];
+  List steps = toVisit.steps;
 
-//Mae, cambie esta lista por la lista de ingredientes real, o sea con el mismo nombre.
-  List ingredients = [
-    "Ingrediente 1",
-    "Ingrediente 2",
-    "Ingrediente 3",
-    "Ingrediente 4",
-    "Ingrediente 5",
-    "Ingrediente 6",
-  ];
+  List ingredients = toVisit.ingridients;
 
-  //Mae, cambie esta lista por la lista de comentarios real, o sea con el mismo nombre.
-  List comments = [
-    "David: Brutal",
-    "Alonso: Que buen pan",
-    "X_JulioProfe_X: Crack",
-    "Tíofav: Quiero uno!",
-    "Elena: Qué rico",
-    "Elon Musk: Esperando al café!",
-  ];
+  List comments = toVisit.comments;
 
   void initContainers() {
     if (stepsContainers.length == 0) {
@@ -115,7 +96,7 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Icon(Icons.star_border, color: Colors.blueAccent),
                         //REMPLAZAR LA STRING CON EL VALOR DEL API
-                        Text("4.7")
+                        Text(toVisit.stars.toString())
                       ],
                     ),
                   ),
@@ -129,20 +110,21 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
                         color: Colors.blueAccent,
                       ),
                       //REMPLAZAR LA STRING CON EL VALOR DEL API
-                      Text("128" + "m"),
+                      Text(toVisit.preparationMinutes.toString() + "m"),
                     ],
                   ),
                 ],
               ),
             ),
             //Aquí cambie las Strings por el valor real según orden (véase la lista "Base" para el orden)
-            ReusableWidgets.infoContainer(base[0], "Pan Francés"),
-            ReusableWidgets.infoContainer(base[1], "Para el cafecito"),
-            ReusableWidgets.infoContainer(base[2], "6 personas"),
-            ReusableWidgets.infoContainer(base[3], "Aperitivo"),
-            ReusableWidgets.infoContainer(base[4], "7"),
+            ReusableWidgets.infoContainer(base[0], toVisit.dishName),
+            ReusableWidgets.infoContainer(base[1], toVisit.dishType),
+            ReusableWidgets.infoContainer(
+                base[2], toVisit.portionsSize.toString()),
+            ReusableWidgets.infoContainer(
+                base[4], toVisit.difficulty.toString()),
             ReusableWidgets.infoContainer(base[5], "Vegano"),
-            ReusableWidgets.infoContainer(base[6], "6 dólares"),
+            ReusableWidgets.infoContainer(base[6], toVisit.price.toString()),
             //
 
             ReusableWidgets.categoryContainer("Ingredientes:"),
@@ -189,8 +171,6 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
                     },
                     label: stars.toInt().toString(),
                   ),
-                  ReusableWidgets.textFormFieldCreator(
-                      commentController, "Escribe tu comentario aqui"),
                   RaisedButton(
                     disabledColor: Colors.blueGrey,
                     disabledTextColor: Colors.black,
@@ -198,11 +178,48 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
                     textColor: Colors.white,
                     elevation: 5.0,
                     onPressed: () {
-                      setState(() {
-                        print("Enviar comentario presionado");
-                      });
+                      newRate(userForEveryone, passwordForEveryone,
+                              toVisit.dishName, stars)
+                          .then((value) => {
+                                if (value.statusCode == 200)
+                                  {Navigator.pushNamed(context, '/screens')}
+                                else
+                                  {throw Exception("Error rating")}
+                              });
                     },
-                    child: Text("Enviar"),
+                    child: Text("Calificar"),
+                  ),
+                  TextFormField(
+                    controller: commentController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          right: SizeConfig.fixLil * 15,
+                          left: SizeConfig.fixLil * 15),
+                      border: OutlineInputBorder(),
+                      hintText: "Comenta",
+                      hintStyle: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  RaisedButton(
+                    disabledColor: Colors.blueGrey,
+                    disabledTextColor: Colors.black,
+                    color: Colors.blueAccent,
+                    textColor: Colors.white,
+                    elevation: 5.0,
+                    onPressed: () {
+                      newComment(
+                              userForEveryone,
+                              passwordForEveryone,
+                              toVisit.dishName,
+                              commentController.text.toString())
+                          .then((value) => {
+                                if (value.statusCode == 200)
+                                  {Navigator.pushNamed(context, '/screens')}
+                                else
+                                  {throw Exception("Error commenting recipe")}
+                              });
+                    },
+                    child: Text("Comentar"),
                   ),
                 ],
               ),

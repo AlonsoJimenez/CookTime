@@ -17,14 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      //initialRoute: '/login',
-      initialRoute: '/screens',
-      //initialRoute: '/recipeviewer',
+      initialRoute: '/login',
       routes: {
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),
         '/signin': (context) => SignInScreen(),
-        '/recipe': (context) => RecipeScreen(),
+        '/recipe': (context) => Material(child: RecipeScreen()),
         '/businesscreator': (context) => Material(
               child: BusinessCreatorScreen(),
             ),

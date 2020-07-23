@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:cook_time/future.dart';
 import 'package:cook_time/screens/login.dart';
+import 'package:cook_time/screens/recipeViewScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cook_time/logic/sizeConfig.dart';
-
 import '../objects.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -92,32 +91,31 @@ class NewsScreenState extends State<NewsScreen> {
             ],
           ),
         ),
-
-        //Widget lista que contiene las noticias.
-        Container(
-            alignment: Alignment.center,
-            child: FutureBuilder<List<Recipe>>(
-              future: newsfeed(userForEveryone, passwordForEveryone),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return gettingNews(snapshot.data);
-                } else if (snapshot.hasError) {
-                  return Text("No news");
-                }
-                return CircularProgressIndicator();
-              },
-            )),
+        Expanded(
+            child: Container(
+                alignment: Alignment.center,
+                child: FutureBuilder<List<Recipe>>(
+                  future: newsfeed(userForEveryone, passwordForEveryone),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return gettingNews(snapshot.data, context);
+                    } else if (snapshot.hasError) {
+                      return Text("No news");
+                    }
+                    return CircularProgressIndicator();
+                  },
+                ))),
       ],
     );
   }
 }
 
-ListView gettingNews(List<Recipe> recipes) {
+ListView gettingNews(List<Recipe> recipes, context) {
   List<Widget> addToNews = new List<Widget>();
   if (recipes.length != 0) {
     for (Recipe recipe in recipes) {
       addToNews.add(SizedBox(height: 20));
-      addToNews.add(news(recipe));
+      addToNews.add(news(recipe, context));
     }
     return ListView(
       children: addToNews,
@@ -128,7 +126,7 @@ ListView gettingNews(List<Recipe> recipes) {
   }
 }
 
-Container news(Recipe recipe) {
+Container news(Recipe recipe, BuildContext context) {
   return Container(
     child: Column(
       children: [
@@ -147,8 +145,8 @@ Container news(Recipe recipe) {
         ),
         GestureDetector(
             onDoubleTap: () {
-              print(
-                  "Aquí se entraría a la receta ya completa con pasos y comentarios de ser posible");
+              toVisit = recipe;
+              Navigator.pushNamed(context, '/recipeviewer');
             },
             child: AspectRatio(
                 aspectRatio: 24 / 18,
