@@ -58,7 +58,7 @@ Future<List<Recipe>> ownUser(String user, String password) async {
     var listing = json.decode(response.body.toString()) as List;
     return listing != null
         ? listing.map((value) => Recipe.fromJson(value)).toList()
-        : null;
+        : new List<Recipe>();
   } else {
     throw Exception("Error loading");
   }
@@ -328,4 +328,17 @@ Future<http.Response> updateUser(String user, String password, User updater) {
         'Content-Type': 'application/json'
       },
       body: jsonEncode(updater));
+}
+
+Future<http.Response> deleteRecipe(
+    String user, String password, String delete) {
+  String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
+  return http.delete(
+    "http://10.0.2.2:9080/CookTimeServer/rest/user/delete?=$delete",
+    // Send authorization headers to the backend.
+    headers: <String, String>{
+      "authorization": author,
+      'Content-Type': 'application/json'
+    },
+  );
 }

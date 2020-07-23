@@ -79,7 +79,7 @@ class UserScreenState extends State<UserScreen> {
                 padding: EdgeInsets.all(SizeConfig.fixAllHor * 0.2),
                 child: Row(
                   children: <Widget>[
-                    RaisedButton(
+                    FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.blue)),
@@ -87,7 +87,6 @@ class UserScreenState extends State<UserScreen> {
                       disabledTextColor: Colors.black,
                       color: Colors.white,
                       textColor: Colors.black,
-                      elevation: 5.0,
                       onPressed: () {
                         Navigator.pushNamed(context, '/editUser');
                       },
@@ -96,82 +95,79 @@ class UserScreenState extends State<UserScreen> {
                   ],
                 )),
           ),
-          FutureBuilder<List<Recipe>>(
-            future: ownUser(userForEveryone, passwordForEveryone),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<Widget> adding = new List<Widget>();
-                for (Recipe recipe in snapshot.data) {
-                  adding.add(recipeResearch(recipe));
-                }
-                return ListView(
-                  children: snapshot.data != null
-                      ? adding
-                      : [Text("No recipes to show")],
-                );
-              } else if (snapshot.hasError) {
-                return ListView(
-                  children: <Widget>[Text("Error loading Data")],
-                );
-              }
-              return CircularProgressIndicator();
-            },
-          )
+          Expanded(
+              child: Container(
+                  height: 350,
+                  child: FutureBuilder<List<Recipe>>(
+                    future: ownUser(userForEveryone, passwordForEveryone),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return getMenu(snapshot.data);
+                      } else if (snapshot.hasError) {
+                        return Text("Error loading");
+                      }
+                      return CircularProgressIndicator();
+                    },
+                  )))
         ],
       ),
     );
   }
 
-  SizedBox recipeResearch(Recipe recipe) {
-    return SizedBox(
-        height: 110,
-        child: Container(
-          margin: EdgeInsets.all(SizeConfig.fixLil * 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-                child: Container(
-                    height: SizeConfig.fixAllVer * 0.8,
-                    width: SizeConfig.fixAllHor * 2,
-                    color: Colors.blue,
-                    child: FittedBox(
-                      fit: BoxFit.fill,
-                      child: Image.memory(base64Decode(recipe.imageBytes)),
-                    )),
-                onDoubleTap: () {},
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(recipe.dishName),
-                  Text(recipe.author),
-                ],
-              ),
-              Text(recipe.stars.toString())
-            ],
-          ),
-        ));
+  Container getMenu(List<Recipe> recipes) {
+    List<Widget> addToNews = new List<Widget>();
+    if (recipes.length != 0) {
+      for (Recipe recipe in recipes) {
+        addToNews.add(menu(recipe));
+        addToNews.add(SizedBox(height: 20));
+      }
+      return Container(
+          child: ListView(
+        children: addToNews,
+      ));
+    } else {
+      return Container(
+          child: ListView(children: [
+        SizedBox(
+          child: Text("No recipes to show"),
+          height: 110,
+        )
+      ]));
+    }
   }
 
-  IconData typeUser(bool isChef) {
+  SizedBox menu(Recipe recipe) {
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          GestureDetector(
+            child: Container(
+                height: SizeConfig.fixAllVer * 0.8,
+                width: SizeConfig.fixAllHor * 2,
+                color: Colors.blue,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Image.memory(base64Decode(recipe.imageBytes)),
+                )),
+            onDoubleTap: () {
+              deleteRecipe(
+                      userForEveryone, passwordForEveryone, recipe.dishName)
+                  .then((response) => {
+                        if (response.statusCode == 200)
+                          {Navigator.pushNamed(context, '/screens')}
+                        else
+                          {throw Exception("Error deleting info")}
+                      });
+            },
+          ),
+          Text(recipe.dishName),
+        ],
+      ),
+    );
+  }
+
+  static IconData typeUser(bool isChef) {
     if (isChef) {
       return Icons.verified_user;
     } else {
@@ -189,7 +185,9 @@ class UserScreenState extends State<UserScreen> {
             color: Colors.blue,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Image.memory(base64Decode(profileInfo.imageBytes)),
+              child: profileInfo.imageBytes != null
+                  ? Image.memory(base64Decode(profileInfo.imageBytes))
+                  : null,
             ),
           ),
           Row(children: [
@@ -198,14 +196,8 @@ class UserScreenState extends State<UserScreen> {
               textScaleFactor: SizeConfig.fixLil * 3,
               style: TextStyle(color: Colors.deepPurple),
             ),
-            SizedBox(
-              width: 5,
-            ),
             Icon(typeUser(profileInfo.isChef))
           ]),
-          SizedBox(
-            height: 10,
-          ),
           Row(
             children: <Widget>[
               Text(
@@ -247,7 +239,7 @@ class UserScreenState extends State<UserScreen> {
             ],
           ),
           Container(
-            child: RaisedButton(
+            child: FlatButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.blue)),
@@ -255,7 +247,6 @@ class UserScreenState extends State<UserScreen> {
               disabledTextColor: Colors.black,
               color: Colors.white,
               textColor: Colors.black,
-              elevation: 5.0,
               onPressed: () {
                 Navigator.pushNamed(context, '/recipe');
               },
@@ -263,7 +254,7 @@ class UserScreenState extends State<UserScreen> {
             ),
           ),
           Container(
-            child: RaisedButton(
+            child: FlatButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                   side: BorderSide(color: Colors.blue)),
@@ -271,7 +262,6 @@ class UserScreenState extends State<UserScreen> {
               disabledTextColor: Colors.black,
               color: Colors.white,
               textColor: Colors.black,
-              elevation: 5.0,
               onPressed: () {
                 Navigator.pushNamed(context, '/businesscreator');
               },

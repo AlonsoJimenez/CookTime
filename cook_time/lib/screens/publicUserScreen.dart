@@ -5,6 +5,7 @@ import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/login.dart';
+import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../objects.dart';
@@ -73,13 +74,28 @@ class PublicUserState extends State<PublicUserScreen> {
             color: Colors.blue,
             child: FittedBox(
               fit: BoxFit.fill,
-              child: Image.memory(base64Decode(toShow.imageBytes)),
+              child: profileInfo.imageBytes != null
+                  ? Image.memory(base64Decode(profileInfo.imageBytes))
+                  : null,
             ),
           ),
-          Text(
-            toShow.name,
-            textScaleFactor: SizeConfig.fixLil * 3,
-            style: TextStyle(color: Colors.deepPurple),
+          Row(children: [
+            Text(
+              profileInfo.name,
+              textScaleFactor: SizeConfig.fixLil * 3,
+              style: TextStyle(color: Colors.deepPurple),
+            ),
+            Icon(UserScreenState.typeUser(profileInfo.isChef))
+          ]),
+          Row(
+            children: <Widget>[
+              Text(
+                  profileInfo.profileDescription != null
+                      ? profileInfo.profileDescription
+                      : "",
+                  style: TextStyle(color: Colors.blueAccent)),
+              Text(profileInfo.age.toString())
+            ],
           )
         ],
       ),
@@ -92,8 +108,8 @@ class PublicUserState extends State<PublicUserScreen> {
               ),
               Column(
                 children: [
-                  Text(toShow.followers != null
-                      ? toShow.followers.length.toString()
+                  Text(profileInfo.followers != null
+                      ? profileInfo.followers.length.toString()
                       : "0"),
                   Text("Seguidores"),
                 ],
@@ -103,8 +119,8 @@ class PublicUserState extends State<PublicUserScreen> {
               ),
               Column(
                 children: [
-                  Text(toShow.following != null
-                      ? toShow.following.length.toString()
+                  Text(profileInfo.following != null
+                      ? profileInfo.following.length.toString()
                       : "0"),
                   Text("Siguiendo"),
                 ],

@@ -201,7 +201,9 @@ class SearchScreenState extends State<SearchScreen> {
                     color: Colors.blue,
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.memory(base64Decode(profile.imageBytes)),
+                      child: profile.imageBytes != null
+                          ? Image.memory(base64Decode(profile.imageBytes))
+                          : null,
                     )),
                 onDoubleTap: () {
                   toShow = profile;
