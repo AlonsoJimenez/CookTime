@@ -1,28 +1,28 @@
 import 'dart:convert';
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/companyList.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
+import 'package:cook_time/screens/searchScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
 
-Enterprise visitMyCompany;
+Enterprise vivitYourCompany;
 
-class BusinessAdmScreen extends StatefulWidget {
+class PublicCompany extends StatefulWidget {
   @override
-  State<BusinessAdmScreen> createState() => BusinessAdmScreenState();
+  State<PublicCompany> createState() => PublicCompanyState();
 }
 
-class BusinessAdmScreenState extends State<BusinessAdmScreen> {
+class PublicCompanyState extends State<PublicCompany> {
   TextEditingController addController;
   var memberContainers = List<Widget>();
   double opacity = 0;
 
   List<String> mem;
 
-  ///Inicia los contenedores para miembros en la empresa privada.
+  ///Método que agrega containers para cada miembro en la empresa.
   void initContainers() {
-    enterpriseSearch(userForEveryone, passwordForEveryone, companySearch)
+    enterpriseSearch(userForEveryone, passwordForEveryone, getYourCompany)
         .then((value) => {
               if (value != null)
                 {
@@ -45,17 +45,18 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                     }
                 }
             });
+    //AQUI SE PUEDE REMPLAZAR LOS CONTAINERS QUE USE POR UNOS QUE PERMITAN ENTRAR AL PERFIL DE USUARIO O LO QUE SEA
   }
 
-  ///Constructor de la página de empresa privada.
+  ///Constructor de la página de empresa pública.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     initContainers();
 
     return FutureBuilder<Enterprise>(
-      future:
-          enterpriseSearch(userForEveryone, passwordForEveryone, companySearch),
+      future: enterpriseSearch(
+          userForEveryone, passwordForEveryone, getYourCompany),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Material(
@@ -137,68 +138,9 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                         Column(
                           children: memberContainers,
                         ),
-                        Container(
-                          decoration: ReusableWidgets.genericBoxDecoration(),
-                          margin: EdgeInsets.all(SizeConfig.fixLilHor * 15),
-                          padding: EdgeInsets.all(SizeConfig.fixLilHor * 10),
-                          child: Column(
-                            children: [
-                              ReusableWidgets.textFormFieldCreator(
-                                  addController,
-                                  "Ingresa un correo para añadir un nuevo miembro"),
-                              Text("Correo no encontrado",
-                                  style: TextStyle(
-                                      color: Colors.redAccent
-                                          .withOpacity(opacity))),
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                disabledColor: Colors.blueGrey,
-                                disabledTextColor: Colors.black,
-                                color: Colors.blueAccent,
-                                textColor: Colors.white,
-                                elevation: 5.0,
-                                onPressed: () {
-                                  setState(() {
-                                    //AQUI HAY QUE HACER UN IF QUE VALIDE SI EL USUARIO SE ENCONTRO O NO
-                                    if (opacity == 0) {
-                                      opacity = 1;
-                                    } else {
-                                      opacity = 0;
-                                    }
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                      height: 400,
-                      child: Expanded(
-                          child: Container(
-                              height: 350,
-                              child: FutureBuilder<List<Recipe>>(
-                                future: ownCompany(
-                                    userForEveryone,
-                                    passwordForEveryone,
-                                    snapshot.data.enterpriseName),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return getMenu(snapshot.data);
-                                  } else if (snapshot.hasError) {
-                                    return Text("Error loading");
-                                  }
-                                  return CircularProgressIndicator();
-                                },
-                              ))))
                 ],
               ),
             ),
@@ -208,59 +150,6 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
         }
         return CircularProgressIndicator();
       },
-    );
-  }
-
-  Container getMenu(List<Recipe> recipes) {
-    List<Widget> addToNews = new List<Widget>();
-    if (recipes.length != 0) {
-      for (Recipe recipe in recipes) {
-        addToNews.add(menu(recipe));
-        addToNews.add(SizedBox(height: 20));
-      }
-      return Container(
-          child: ListView(
-        children: addToNews,
-      ));
-    } else {
-      return Container(
-          child: ListView(children: [
-        SizedBox(
-          child: Text("No recipes to show"),
-          height: 110,
-        )
-      ]));
-    }
-  }
-
-  SizedBox menu(Recipe recipe) {
-    return SizedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          GestureDetector(
-            child: Container(
-                height: SizeConfig.fixAllVer * 0.8,
-                width: SizeConfig.fixAllHor * 2,
-                color: Colors.blue,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Image.memory(base64Decode(recipe.imageBytes)),
-                )),
-            onDoubleTap: () {
-              deleteRecipe(
-                      userForEveryone, passwordForEveryone, recipe.dishName)
-                  .then((response) => {
-                        if (response.statusCode == 200)
-                          {Navigator.pushNamed(context, '/screens')}
-                        else
-                          {throw Exception("Error deleting info")}
-                      });
-            },
-          ),
-          Text(recipe.dishName),
-        ],
-      ),
     );
   }
 }

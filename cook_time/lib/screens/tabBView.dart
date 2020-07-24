@@ -1,22 +1,11 @@
-import 'dart:convert';
-
-import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
-import 'package:cook_time/screens/businessCreatorScreen.dart';
 import 'package:cook_time/screens/companyList.dart';
-import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/notificationScreen.dart';
-import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/searchScreen.dart';
-import 'package:cook_time/screens/signInScreen.dart';
 import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_time/screens/newsfeed.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:cook_time/logic/sizeConfig.dart';
-
-import '../objects.dart';
 
 class TabBView extends StatefulWidget {
   @override
@@ -24,6 +13,7 @@ class TabBView extends StatefulWidget {
 }
 
 class TabBViewState extends State<TabBView> {
+  ///Metodo que prohíbe la pantalla en posición Landscape (horizontal)
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
@@ -35,10 +25,12 @@ class TabBViewState extends State<TabBView> {
     ]);
   }
 
+  ///Futuro para volver a la página LogIn al presionar el botón back.
   Future<bool> _onBackPressed() {
     return Navigator.pushNamed(context, '/login');
   }
 
+  ///Constructor de la página Tabview.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -75,6 +67,7 @@ class TabBViewState extends State<TabBView> {
         ));
   }
 
+  ///Constructor de la BottomTabBar que permite cambiar entre pestañas en el TabView.
   Container bottomTabBar() {
     return Container(
       child: TabBar(

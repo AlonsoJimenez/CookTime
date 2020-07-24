@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class User {
   bool isChef;
   String imageBytes;
@@ -32,6 +30,7 @@ class User {
       this.myMenu,
       this.recipes});
 
+  ///Factory que permite crear usuario a partir de Json
   factory User.fromJson(Map<String, dynamic> json) {
     var jsonCompanies = json["companies"] as List;
     var jsonFollowers = json["followers"] as List;
@@ -62,6 +61,7 @@ class User {
         recipes: jsonRecipes != null ? List.from(jsonRecipes) : null);
   }
 
+  ///Map de los datos de un usuario.
   Map<String, dynamic> toJson() => {
         "isChef": isChef,
         "age": age,
@@ -80,6 +80,7 @@ class User {
       };
 }
 
+///Clase Empresa.
 class Enterprise {
   String imageBytes;
   String enterpriseName;
@@ -98,6 +99,7 @@ class Enterprise {
       this.recipes,
       this.imageBytes});
 
+  ///Factory que permite crear empresa a partir de Json
   factory Enterprise.fromJson(Map<String, dynamic> json) {
     var jsonRecipes = json["recipes"] as List;
     var jsonMembers = json["members"] as List;
@@ -118,6 +120,7 @@ class Enterprise {
             : null);
   }
 
+  ///Mapa de los datos del objeto empresa.
   Map<String, dynamic> toJson() => {
         "enterpriseName": enterpriseName,
         "contactInfo": contactInfo,
@@ -159,6 +162,7 @@ class Recipe {
       this.tags,
       this.publish});
 
+  ///Factory que permite crear receta a partir de Json
   factory Recipe.fromJson(Map<String, dynamic> json) {
     var jsonComments = json["comments"] as List;
     var jsonIngridients = json["ingridients"] as List;
@@ -183,6 +187,8 @@ class Recipe {
         tags: jsonTags != null ? List.from(jsonTags) : null,
         publish: jsonPublish != null ? List.from(jsonPublish) : null);
   }
+
+  ///Map de los datos del objeto receta.
   Map<String, dynamic> toJson() => {
         "author": author,
         "comments": comments,
@@ -234,6 +240,7 @@ class EnterpriseRecipe extends Recipe {
       this.isPublic,
       this.price});
 
+  ///Factory que permite crear receta empresarial a partir de Json
   factory EnterpriseRecipe.fromJson(Map<String, dynamic> json) {
     var jsonComments = json["comments"] as List;
     var jsonIngridients = json["ingridients"] as List;
@@ -261,6 +268,7 @@ class EnterpriseRecipe extends Recipe {
         price: json["price"] != null ? json["price"] : null);
   }
 
+  ///Map de los datos del objeto receta empresarial.
   Map<String, dynamic> toJson() => {
         "author": author,
         "comments": comments,

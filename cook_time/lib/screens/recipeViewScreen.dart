@@ -24,6 +24,7 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
 
   double stars = 0;
 
+  ///Lista con textos base.
   List base = [
     "Nombre de la receta: ",
     "Tipo de plato: ",
@@ -40,6 +41,7 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
 
   List comments = toVisit.comments;
 
+  ///Inicia los contenedores con los datos de pasos, ingredientes y comentarios de la receta.
   void initContainers() {
     if (stepsContainers.length == 0) {
       for (int x = 0; x < steps.length; x++) {
@@ -63,6 +65,7 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
     }
   }
 
+  ///Constructor de la página para visualizar una receta.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

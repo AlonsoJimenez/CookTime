@@ -17,10 +17,7 @@ class UserEditScreenState extends State<UserEditScreen> {
 
   static final profileController = TextEditingController();
 
-  Future<bool> _onBackPressed() {
-    return Navigator.pushNamed(context, '/login');
-  }
-
+  ///Futuro que permite extraer la imagen de la galería.
   Future getImageFromGallery() async {
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -28,6 +25,7 @@ class UserEditScreenState extends State<UserEditScreen> {
     });
   }
 
+  ///Constructor de la página para editar al usuario.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

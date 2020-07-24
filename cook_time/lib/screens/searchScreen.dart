@@ -15,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class SearchScreenState extends State<SearchScreen> {
+  ///SizedBox por defecto para la página de búsqueda.
   static SizedBox defaultContainer() {
     return SizedBox(
         child: Container(
@@ -39,12 +40,14 @@ class SearchScreenState extends State<SearchScreen> {
     ));
   }
 
+  ///SizedBox que se muestra cuando no hay resultados encontrados.
   SizedBox noResults() {
     return SizedBox(
       child: Text("No results for your search"),
     );
   }
 
+  ///SizedBox para resultados de empresa.
   SizedBox enterpriseResearch(Enterprise company) {
     return SizedBox(
         height: 110,
@@ -94,6 +97,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///SizedBox para resultados de recetas.
   SizedBox recipeResearch(Recipe recipe) {
     return SizedBox(
         height: 110,
@@ -146,6 +150,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///FlatButton para seguir a una empresa.
   FlatButton followCompanyButton(String name) {
     String textButton = "Follow";
     return FlatButton(
@@ -173,6 +178,7 @@ class SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  ///SizedBox para mostrar resultados de usuario.
   SizedBox profileResearch(User profile) {
     return SizedBox(
         height: 110,
@@ -227,6 +233,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///FlatButton para seguir a un usuario.
   FlatButton followUserButton(String email) {
     String textButton = "Follow";
     return FlatButton(
@@ -258,6 +265,7 @@ class SearchScreenState extends State<SearchScreen> {
   static final searchController = TextEditingController();
   static int treeValue = 0;
 
+  ///Constructor de la página de buscador.
   @override
   Widget build(BuildContext context) {
     return Container(

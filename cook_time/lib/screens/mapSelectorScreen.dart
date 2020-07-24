@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,8 +14,8 @@ class MapSelectorScreenState extends State<MapSelectorScreen> {
   List<Marker> myMarker = [];
 
   LatLng position = LatLng(9.9356284, -84.1483645);
-  //GoogleMapController myController;
 
+  ///Constructor de la página para extraer coordenadas de un puntero.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -48,9 +46,10 @@ class MapSelectorScreenState extends State<MapSelectorScreen> {
           textColor: Colors.white,
           elevation: 5.0,
           onPressed: () {
+            //Evento que guarda/envía la lat y la lng
             setState(() {});
           },
-          child: Text("Set Marker"),
+          child: Text("Guardar Ubicación"),
         ),
       ],
     ));

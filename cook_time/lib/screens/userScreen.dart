@@ -10,6 +10,7 @@ class UserScreen extends StatefulWidget {
 }
 
 class UserScreenState extends State<UserScreen> {
+  ///Constructor de la página para visualizar usuarios.
   @override
   Widget build(BuildContext context) {
     return Container(

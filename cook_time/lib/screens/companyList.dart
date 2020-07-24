@@ -7,6 +7,7 @@ class CompaniesList extends StatefulWidget {
   State<CompaniesList> createState() => CompaniesListState();
 }
 
+///Metodo constructor de la página para seleccionar la empresa.
 class CompaniesListState extends State<CompaniesList> {
   @override
   Widget build(BuildContext context) {
