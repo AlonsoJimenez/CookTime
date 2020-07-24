@@ -1,7 +1,10 @@
 import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:cook_time/screens/mapSelectorScreen.dart';
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 =======
 >>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 import 'package:cook_time/screens/recipeScreen.dart';
@@ -35,8 +38,12 @@ class MyApp extends StatelessWidget {
             ),
         '/recipeviewer': (context) => RecipeViewScreen(),
 <<<<<<< HEAD
+<<<<<<< HEAD
         '/businessAdm': (context) => BusinessAdmScreen(),
         '/mapSelector': (context) => MapSelectorScreen(),
+=======
+        '/businessAdm': (context) => BusinessAdmScreen()
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 =======
         '/businessAdm': (context) => BusinessAdmScreen()
 >>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa

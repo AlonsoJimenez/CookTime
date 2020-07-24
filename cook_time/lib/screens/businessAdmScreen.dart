@@ -26,6 +26,9 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
   void initContainers() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 =======
 >>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
     //AQUI SE PUEDE REMPLAZAR LOS CONTAINERS QUE USE POR UNOS QUE PERMITAN ENTRAR AL PERFIL DE USUARIO O LO QUE SEA
@@ -43,6 +46,7 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
         ));
       }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     enterpriseSearch(userForEveryone, passwordForEveryone, companySearch)
@@ -69,6 +73,8 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                 }
             });
 >>>>>>> bda2073baf138d48c3f66f3411c2044ffd8a2d82
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 =======
 >>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
   }
@@ -192,6 +198,10 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
               ),
             ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 =======
 
 >>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
