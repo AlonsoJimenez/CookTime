@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      //initialRoute: '/login',
-      initialRoute: '/mapSelector',
-
+      initialRoute: '/login',
       routes: {
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),
