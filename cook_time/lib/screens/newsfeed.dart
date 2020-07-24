@@ -14,8 +14,6 @@ class NewsScreen extends StatefulWidget {
 }
 
 class NewsScreenState extends State<NewsScreen> {
-  Future<List<Recipe>> theNews = newsfeed(userForEveryone, passwordForEveryone);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +36,7 @@ class NewsScreenState extends State<NewsScreen> {
                 elevation: 5.0,
                 onPressed: () {
                   setState(() {
-                    theNews = byDate(userForEveryone, passwordForEveryone);
+                    print("Ordenar Newsfeed pres");
                   });
                 },
                 child: Text("Fecha"),
@@ -54,7 +52,7 @@ class NewsScreenState extends State<NewsScreen> {
                 elevation: 5.0,
                 onPressed: () {
                   setState(() {
-                    theNews = byStars(userForEveryone, passwordForEveryone);
+                    print("Ordenar Newsfeed pres");
                   });
                 },
                 child: Text("Estrellas"),
@@ -70,8 +68,7 @@ class NewsScreenState extends State<NewsScreen> {
                 elevation: 5.0,
                 onPressed: () {
                   setState(() {
-                    theNews =
-                        byDifficulty(userForEveryone, passwordForEveryone);
+                    print("Ordenar Newsfeed pres");
                   });
                 },
                 child: Text("Dificultad"),
@@ -83,7 +80,7 @@ class NewsScreenState extends State<NewsScreen> {
             child: Container(
                 alignment: Alignment.center,
                 child: FutureBuilder<List<Recipe>>(
-                  future: theNews,
+                  future: newsfeed(userForEveryone, passwordForEveryone),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return gettingNews(snapshot.data, context);
