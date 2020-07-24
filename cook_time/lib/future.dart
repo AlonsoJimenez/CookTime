@@ -113,31 +113,58 @@ Future<List<Enterprise>> companies(String user, String password) async {
   }
 }
 
-Future<http.Response> byStars(String user, String password) {
+Future<List<Recipe>> byStars(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
-    "http://10.0.2.2:9080/CookTimeServer/rest/user/stars",
-    // Send authorization headers to the backend.
-    headers: <String, String>{"authorization": author},
-  );
+  final response =
+      await http.get("http://10.0.2.2:9080/CookTimeServer/rest/user/stars",
+          // Send authorization headers to the backend.
+          headers: <String, String>{"authorization": author});
+  if (response.statusCode == 200) {
+    var jsonRecipes = json.decode(response.body.toString()) as List;
+    return jsonRecipes != null
+        ? jsonRecipes
+            .map((recipesValues) => Recipe.fromJson(recipesValues))
+            .toList()
+        : new List<Recipe>();
+  } else {
+    return null;
+  }
 }
 
-Future<http.Response> byDate(String user, String password) {
+Future<List<Recipe>> byDate(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
-    "http://10.0.2.2:9080/CookTimeServer/rest/user/date",
-    // Send authorization headers to the backend.
-    headers: <String, String>{"authorization": author},
-  );
+  final response =
+      await http.get("http://10.0.2.2:9080/CookTimeServer/rest/user/date",
+          // Send authorization headers to the backend.
+          headers: <String, String>{"authorization": author});
+  if (response.statusCode == 200) {
+    var jsonRecipes = json.decode(response.body.toString()) as List;
+    return jsonRecipes != null
+        ? jsonRecipes
+            .map((recipesValues) => Recipe.fromJson(recipesValues))
+            .toList()
+        : new List<Recipe>();
+  } else {
+    return null;
+  }
 }
 
-Future<http.Response> byDifficulty(String user, String password) {
+Future<List<Recipe>> byDifficulty(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
-  return http.get(
-    "http://10.0.2.2:9080/CookTimeServer/rest/user/difficulty",
-    // Send authorization headers to the backend.
-    headers: <String, String>{"authorization": author},
-  );
+  final response =
+      await http.get("http://10.0.2.2:9080/CookTimeServer/rest/user/difficulty",
+          // Send authorization headers to the backend.
+          headers: <String, String>{"authorization": author});
+  if (response.statusCode == 200) {
+    var jsonRecipes = json.decode(response.body.toString()) as List;
+    return jsonRecipes != null
+        ? jsonRecipes
+            .map((recipesValues) => Recipe.fromJson(recipesValues))
+            .toList()
+        : new List<Recipe>();
+  } else {
+    return null;
+  }
 }
 
 Future<User> profileSearch(String user, String password, String search) async {
