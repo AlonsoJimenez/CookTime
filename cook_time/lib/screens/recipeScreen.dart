@@ -1,12 +1,9 @@
 import 'dart:convert';
-//import 'dart:html';
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
-
 import '../objects.dart';
 
 List<String> toStringList(List<TextEditingController> controllers) {
@@ -35,6 +32,7 @@ class RecipeScreenState extends State<RecipeScreen> {
   var stepsTextFieldControllers = List<TextEditingController>();
   var stepsTextFormFields = List<Widget>();
 
+  ///Texto base de los TextFormField para una receta.
   List text = [
     "Nombre de la receta",
     "Tipo de plato (Desayuno, Almuerzo...)",
@@ -46,6 +44,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     "Precio (Obligatorio para empresas)"
   ];
 
+  ///Inicia los TextFormField que por defecto toda receta va a tener.
   void initTextFormField() {
     if (baseTextFieldControllers.length == 0) {
       for (int x = 0; x < text.length; x++) {
@@ -64,6 +63,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     }
   }
 
+  ///Get futuro para extraer la imagen de la galería.
   Future getImageFromGallery() async {
     // ignore: deprecated_member_use
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -72,6 +72,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     });
   }
 
+  ///Constructor de la página para crear recetas.
   @override
   Widget build(BuildContext context) {
     initTextFormField();
@@ -80,7 +81,6 @@ class RecipeScreenState extends State<RecipeScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            //Esto es solo un widget pero con un if rarísimo que afecta la forma en la que se ve según se haya o no seleccionado un archivo.
             base64 == null
                 ? GestureDetector(
                     child: Container(

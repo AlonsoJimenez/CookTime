@@ -1,5 +1,4 @@
 import 'package:cook_time/future.dart';
-import 'package:cook_time/screens/businessAdmScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
 
@@ -10,6 +9,7 @@ class CompaniesList extends StatefulWidget {
   State<CompaniesList> createState() => CompaniesListState();
 }
 
+///Metodo constructor de la página para seleccionar la empresa.
 class CompaniesListState extends State<CompaniesList> {
   @override
   Widget build(BuildContext context) {

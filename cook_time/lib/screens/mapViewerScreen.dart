@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +11,7 @@ class MapViewerScreenState extends State<MapViewerScreen> {
   LatLng position = LatLng(9.9356284, -84.1483645);
   List<Marker> myMarker = [];
 
-  //A init se le mandan los valores del api de lat y de lng y actualiza el mapa/agrega el marcador a la vez.
+  ///Init que permite añadir el puntero y modificar la posición de la cámara una vez se extraen los datos del RestApi.
   void initPosition(double lat, double lng) {
     setState(() {
       position = LatLng(lat, lng);
@@ -27,6 +25,7 @@ class MapViewerScreenState extends State<MapViewerScreen> {
     });
   }
 
+  ///Constructor de la página para visualizar un puntero ya existente..
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

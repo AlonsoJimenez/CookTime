@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../future.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -8,6 +7,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
+  ///Constructor de la página de notificaciones.
   @override
   Widget build(BuildContext context) {
     return Container(

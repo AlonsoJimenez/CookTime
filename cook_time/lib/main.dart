@@ -1,6 +1,8 @@
 import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/buisnessPub.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
+import 'package:cook_time/screens/mapSelectorScreen.dart';
+import 'package:cook_time/screens/mapViewerScreen.dart';
 import 'package:cook_time/screens/publicUserScreen.dart';
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
@@ -13,6 +15,7 @@ import 'package:cook_time/screens/login.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  ///Constructor del árbol en el que se dividen las páginas (routes). (Main)
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +35,9 @@ class MyApp extends StatelessWidget {
         '/user': (context) => Material(child: PublicUserScreen()),
         '/recipeviewer': (context) => RecipeViewScreen(),
         '/businessAdm': (context) => BusinessAdmScreen(),
-        '/pubCompany': (context) => PublicCompany()
+        '/pubCompany': (context) => PublicCompany(),
+        '/mapselector': (context) => MapSelectorScreen(),
+        '/mapviewer': (context) => MapViewerScreen(),
       },
     );
   }

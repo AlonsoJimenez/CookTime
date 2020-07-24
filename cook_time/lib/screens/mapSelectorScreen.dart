@@ -14,8 +14,8 @@ class MapSelectorScreenState extends State<MapSelectorScreen> {
   List<Marker> myMarker = [];
 
   LatLng position = LatLng(9.9356284, -84.1483645);
-  //GoogleMapController myController;
 
+  ///Constructor de la página para extraer coordenadas de un puntero.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

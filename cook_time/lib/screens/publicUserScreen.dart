@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
@@ -17,6 +13,7 @@ class PublicUserScreen extends StatefulWidget {
 }
 
 class PublicUserState extends State<PublicUserScreen> {
+  ///Constructor de la página de usuario público.
   @override
   Widget build(BuildContext context) {
     return Container(

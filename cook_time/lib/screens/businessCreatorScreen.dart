@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:cook_time/objects.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../future.dart';
 
 class BusinessCreatorScreen extends StatefulWidget {
@@ -21,12 +19,14 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
   var baseTextFieldControllers = List<TextEditingController>();
   var baseTextFormFields = List<Widget>();
 
+  ///Lista con el texto a usar en los textformfield.
   final List text = [
     "Nombre de la empresa",
     "Método(s) de contacto",
     "Horario de atención",
   ];
 
+  ///Inicia los textformfields que siempre están presentes en la página de creación de empresas.
   void initTextFormField() {
     if (baseTextFieldControllers.length == 0) {
       for (int x = 0; x < text.length; x++) {
@@ -37,6 +37,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
     }
   }
 
+  ///Get para permitir al usuario extraer una imagen desde la galería.
   Future getImageFromGallery() async {
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -44,6 +45,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
     });
   }
 
+  ///Constructor de la página para crear empresas.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
