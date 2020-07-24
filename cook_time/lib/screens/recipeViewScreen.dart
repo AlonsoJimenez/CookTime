@@ -211,9 +211,7 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
                               userForEveryone,
                               passwordForEveryone,
                               toVisit.dishName,
-                              userForEveryone +
-                                  ":" +
-                                  commentController.text.toString())
+                              commentController.text.toString())
                           .then((value) => {
                                 if (value.statusCode == 200)
                                   {Navigator.pushNamed(context, '/screens')}

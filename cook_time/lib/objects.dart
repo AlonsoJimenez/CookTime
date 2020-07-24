@@ -85,7 +85,6 @@ class Enterprise {
   String enterpriseName;
   String contactInfo;
   String operationHours;
-  List<double> coordinates;
   List<EnterpriseRecipe> recipes;
   List<String> members;
   List<String> followers;
@@ -97,11 +96,9 @@ class Enterprise {
       this.members,
       this.operationHours,
       this.recipes,
-      this.imageBytes,
-      this.coordinates});
+      this.imageBytes});
 
   factory Enterprise.fromJson(Map<String, dynamic> json) {
-    var jsonCoordinates = json["coordinates"] as List;
     var jsonRecipes = json["recipes"] as List;
     var jsonMembers = json["members"] as List;
     var jsonFollowers = json["followers"] as List;
@@ -118,9 +115,7 @@ class Enterprise {
             ? jsonRecipes
                 .map((recipesVar) => EnterpriseRecipe.fromJson(recipesVar))
                 .toList()
-            : null,
-        coordinates:
-            jsonCoordinates != null ? List.from(jsonCoordinates) : null);
+            : null);
   }
 
   Map<String, dynamic> toJson() => {
@@ -129,8 +124,7 @@ class Enterprise {
         "operationHours": operationHours,
         "recipes": recipes,
         "members": members,
-        "followers": followers,
-        "coordinates": coordinates
+        "followers": followers
       };
 }
 

@@ -126,8 +126,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
                     members: [userForEveryone],
                     operationHours: baseTextFieldControllers[2].text,
                     recipes: [],
-                    imageBytes: base64,
-                    coordinates: []);
+                    imageBytes: base64);
                 postCompany(userForEveryone, passwordForEveryone, toSend)
                     .then((response) => {
                           if (response.statusCode == 200)

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
+import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/publicUserScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
 import 'package:flutter/material.dart';
-import '../objects.dart';
 
-String getYourCompany;
+import '../objects.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -79,10 +79,7 @@ class SearchScreenState extends State<SearchScreen> {
                       fit: BoxFit.fill,
                       child: Icon(Icons.business, color: Colors.black),
                     )),
-                onDoubleTap: () {
-                  getYourCompany = company.enterpriseName;
-                  Navigator.pushNamed(context, '/pubCompany');
-                },
+                onDoubleTap: () {},
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
