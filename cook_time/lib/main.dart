@@ -1,6 +1,9 @@
 import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
+<<<<<<< HEAD
 import 'package:cook_time/screens/mapSelectorScreen.dart';
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
 import 'package:cook_time/screens/signInScreen.dart';
@@ -19,7 +22,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      initialRoute: '/login',
+      //initialRoute: '/login',
+      initialRoute: '/businessAdm',
+
       routes: {
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),
@@ -29,8 +34,12 @@ class MyApp extends StatelessWidget {
               child: BusinessCreatorScreen(),
             ),
         '/recipeviewer': (context) => RecipeViewScreen(),
+<<<<<<< HEAD
         '/businessAdm': (context) => BusinessAdmScreen(),
         '/mapSelector': (context) => MapSelectorScreen(),
+=======
+        '/businessAdm': (context) => BusinessAdmScreen()
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
       },
     );
   }

@@ -25,6 +25,9 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
   ///Inicia los contenedores para miembros en la empresa privada.
   void initContainers() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
     //AQUI SE PUEDE REMPLAZAR LOS CONTAINERS QUE USE POR UNOS QUE PERMITAN ENTRAR AL PERFIL DE USUARIO O LO QUE SEA
     if (memberContainers.length == 0) {
       for (int x = 0; x < mem.length; x++) {
@@ -40,6 +43,7 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
         ));
       }
     }
+<<<<<<< HEAD
 =======
     enterpriseSearch(userForEveryone, passwordForEveryone, companySearch)
         .then((value) => {
@@ -65,6 +69,8 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                 }
             });
 >>>>>>> bda2073baf138d48c3f66f3411c2044ffd8a2d82
+=======
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
   }
 
   ///Constructor de la página de empresa privada.
@@ -185,6 +191,10 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                 ],
               ),
             ),
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 8e7d7cd... Cambios para cargar vista empresa
             //Aquí se puede agregar cualquier widget de cualquier tamaño porque es un SIngleviewScrollwidget
           ],
         ),
