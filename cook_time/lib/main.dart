@@ -1,5 +1,6 @@
 import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
+import 'package:cook_time/screens/mapSelectorScreen.dart';
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
 import 'package:cook_time/screens/signInScreen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
       ),
       //initialRoute: '/login',
-      initialRoute: '/businessAdm',
+      initialRoute: '/mapSelector',
 
       routes: {
         '/screens': (context) => TabBView(),
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
               child: BusinessCreatorScreen(),
             ),
         '/recipeviewer': (context) => RecipeViewScreen(),
-        '/businessAdm': (context) => BusinessAdmScreen()
+        '/businessAdm': (context) => BusinessAdmScreen(),
+        '/mapSelector': (context) => MapSelectorScreen(),
       },
     );
   }
