@@ -85,7 +85,9 @@ class RecipeViewScreenState extends State<RecipeViewScreen> {
               color: Colors.blue,
               child: FittedBox(
                 fit: BoxFit.fill,
-                child: Image.memory(base64Decode(base64)),
+                child: toVisit.imageBytes != null
+                    ? Image.memory(base64Decode(toVisit.imageBytes))
+                    : null,
               ),
             ),
             Container(
