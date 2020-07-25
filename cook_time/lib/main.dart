@@ -1,6 +1,7 @@
 import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/buisnessPub.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
+import 'package:cook_time/screens/companyRecipe.dart';
 import 'package:cook_time/screens/publicUserScreen.dart';
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/login',
       routes: {
+        '/companyRecipe': (context) => Material(child: CompanyRecipe()),
         '/editUser': (context) => Material(child: UserEditScreen()),
         '/screens': (context) => TabBView(),
         '/login': (context) => Login(),

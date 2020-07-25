@@ -115,7 +115,20 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                     ),
                   ),
 
-                  //
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    disabledColor: Colors.blueGrey,
+                    disabledTextColor: Colors.black,
+                    color: Colors.blueAccent,
+                    textColor: Colors.white,
+                    elevation: 5.0,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/companyRecipe');
+                    },
+                    child: Text("Nueva Receta"),
+                  ),
                   //CAMBIAR CON EL NOMBRE DE LA EMPRESA
                   ReusableWidgets.categoryContainer(
                       snapshot.data.enterpriseName),
