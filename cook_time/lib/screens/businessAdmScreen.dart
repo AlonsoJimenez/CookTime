@@ -103,7 +103,7 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                               elevation: 5.0,
                               onPressed: () {
                                 setState(() {
-                                  print("Ver ubicación presionado");
+                                  Navigator.pushNamed(context, '/mapViewer');
                                 });
                               },
                               child: Text("Ver ubicación"),

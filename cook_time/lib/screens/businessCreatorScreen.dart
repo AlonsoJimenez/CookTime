@@ -99,21 +99,19 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
               children: baseTextFormFields,
             ),
 
-            Container(
-              margin: EdgeInsets.all(SizeConfig.fixLil * 60),
-              padding: EdgeInsets.all(SizeConfig.fixLil * 15),
-              height: SizeConfig.fixAllVer * 4,
-              width: SizeConfig.fixAllHor * 10,
-              color: Colors.blue,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(9.9356284, -84.1483645), zoom: 15.0),
-                onMapCreated: (controller) {
-                  setState(() {
-                    myController = controller;
-                  });
-                },
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
               ),
+              disabledColor: Colors.blueGrey,
+              disabledTextColor: Colors.black,
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              elevation: 5.0,
+              onPressed: () {
+                Navigator.pushNamed(context, '/mapSelector');
+              },
+              child: Text("Agregar ubicación."),
             ),
             RaisedButton(
               disabledColor: Colors.blueGrey,

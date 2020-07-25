@@ -2,6 +2,8 @@ import 'package:cook_time/screens/BusinessAdmScreen.dart';
 import 'package:cook_time/screens/buisnessPub.dart';
 import 'package:cook_time/screens/businessCreatorScreen.dart';
 import 'package:cook_time/screens/companyRecipe.dart';
+import 'package:cook_time/screens/mapSelectorScreen.dart';
+import 'package:cook_time/screens/mapViewerScreen.dart';
 import 'package:cook_time/screens/publicUserScreen.dart';
 import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
         '/user': (context) => Material(child: PublicUserScreen()),
         '/recipeviewer': (context) => RecipeViewScreen(),
         '/businessAdm': (context) => BusinessAdmScreen(),
-        '/pubCompany': (context) => PublicCompany()
+        '/pubCompany': (context) => PublicCompany(),
+        '/mapSelector': (context) => MapSelectorScreen(),
+        '/mapViewer': (context) => MapViewerScreen(),
       },
     );
   }
