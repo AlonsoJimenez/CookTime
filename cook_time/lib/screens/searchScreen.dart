@@ -39,12 +39,14 @@ class SearchScreenState extends State<SearchScreen> {
     ));
   }
 
+  ///Retorna un Sizedbox cuando no hay resultados.
   SizedBox noResults() {
     return SizedBox(
-      child: Text("No results for your search"),
+      child: Text("No hay resultados para la búsqueda."),
     );
   }
 
+  ///Retorna un SizedBox con el resultado de empresa.
   SizedBox enterpriseResearch(Enterprise company) {
     return SizedBox(
         height: 110,
@@ -97,6 +99,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///Retorna un SizedBox con el resultado de receta.
   SizedBox recipeResearch(Recipe recipe) {
     return SizedBox(
         height: 110,
@@ -149,6 +152,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///Retorna un botón que permite seguir a la compañía padre.
   FlatButton followCompanyButton(String name) {
     String textButton = "Follow";
     return FlatButton(
@@ -176,6 +180,7 @@ class SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  ///Retorna un SizedBox con el resultado del perfil.
   SizedBox profileResearch(User profile) {
     return SizedBox(
         height: 110,
@@ -230,6 +235,7 @@ class SearchScreenState extends State<SearchScreen> {
         ));
   }
 
+  ///Retorna botón que permite seguir al usuario padre.
   FlatButton followUserButton(String email) {
     String textButton = "Follow";
     return FlatButton(
@@ -261,6 +267,7 @@ class SearchScreenState extends State<SearchScreen> {
   static final searchController = TextEditingController();
   static int treeValue = 0;
 
+  ///Constructor de la página de búsqueda.
   @override
   Widget build(BuildContext context) {
     return Container(

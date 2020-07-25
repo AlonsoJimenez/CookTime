@@ -1,22 +1,22 @@
-import 'dart:convert';
+//import 'dart:convert';
 
-import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
-import 'package:cook_time/screens/businessCreatorScreen.dart';
+//import 'package:cook_time/future.dart';
+//import 'package:cook_time/logic/base64.dart';
+//import 'package:cook_time/screens/businessCreatorScreen.dart';
 import 'package:cook_time/screens/companyList.dart';
-import 'package:cook_time/screens/login.dart';
+//import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/notificationScreen.dart';
-import 'package:cook_time/screens/recipeScreen.dart';
+//import 'package:cook_time/screens/recipeScreen.dart';
 import 'package:cook_time/screens/searchScreen.dart';
-import 'package:cook_time/screens/signInScreen.dart';
+//import 'package:cook_time/screens/signInScreen.dart';
 import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_time/screens/newsfeed.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:cook_time/logic/sizeConfig.dart';
 
-import '../objects.dart';
+//import '../objects.dart';
 
 class TabBView extends StatefulWidget {
   @override
@@ -24,6 +24,7 @@ class TabBView extends StatefulWidget {
 }
 
 class TabBViewState extends State<TabBView> {
+  ///Método que impide que el teléfono cambie su orientación a otra que no sea Portrait.
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
@@ -35,10 +36,12 @@ class TabBViewState extends State<TabBView> {
     ]);
   }
 
+  ///metodo para controlar acciones al precionar el botón back del teléfono.
   Future<bool> _onBackPressed() {
     return Navigator.pushNamed(context, '/login');
   }
 
+  ///Constructor de la página TabView
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -75,6 +78,7 @@ class TabBViewState extends State<TabBView> {
         ));
   }
 
+  ///Retorna Contenedor con el BottomTabBar que permite cambiar entre Tabs del TabView.
   Container bottomTabBar() {
     return Container(
       child: TabBar(

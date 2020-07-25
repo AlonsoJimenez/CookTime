@@ -27,6 +27,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
     "Horario de atención",
   ];
 
+  ///Inicia los TextFormField base para crear la empresa.
   void initTextFormField() {
     if (baseTextFieldControllers.length == 0) {
       for (int x = 0; x < text.length; x++) {
@@ -37,6 +38,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
     }
   }
 
+  ///Futuro para extraer la imagen de la galería.
   Future getImageFromGallery() async {
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -44,6 +46,7 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
     });
   }
 
+  ///Creador de la página para Crear Empresas.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

@@ -1,6 +1,6 @@
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/login.dart';
+//import 'package:cook_time/screens/login.dart';
 import 'package:flutter/material.dart';
 
 import '../objects.dart';
@@ -18,10 +18,12 @@ class SignInScreenState extends State<SignInScreen> {
   static final ageController = TextEditingController();
   static final passwordController = TextEditingController();
 
+  ///Futuro que agrega una función al botón back del teléfono. (cuando se preciona)
   Future<bool> _onBackPressed() {
     return Navigator.pushNamed(context, '/login');
   }
 
+  ///Constructo de la página de SignIn
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

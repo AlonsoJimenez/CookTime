@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:cook_time/future.dart';
-import 'package:cook_time/logic/base64.dart';
+//import 'package:cook_time/logic/base64.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
-import 'package:cook_time/screens/login.dart';
+//import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/userScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
@@ -17,6 +17,7 @@ class PublicUserScreen extends StatefulWidget {
 }
 
 class PublicUserState extends State<PublicUserScreen> {
+  ///Creador de la página de usuario publico.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,6 +65,7 @@ class PublicUserState extends State<PublicUserScreen> {
     );
   }
 
+  ///Retorna Row con la información del perfil del usuario.
   Row userTop(User profileInfo) {
     return Row(children: [
       Column(

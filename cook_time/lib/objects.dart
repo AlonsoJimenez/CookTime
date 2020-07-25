@@ -32,6 +32,7 @@ class User {
       this.myMenu,
       this.recipes});
 
+  ///Factory para construir clase usuario desde un Json
   factory User.fromJson(Map<String, dynamic> json) {
     var jsonCompanies = json["companies"] as List;
     var jsonFollowers = json["followers"] as List;
@@ -100,6 +101,7 @@ class Enterprise {
       this.imageBytes,
       this.coordinates});
 
+  ///Factory para construir clase Empresa desde un Json
   factory Enterprise.fromJson(Map<String, dynamic> json) {
     var jsonCoordinates = json["coordinates"] as List;
     var jsonRecipes = json["recipes"] as List;
@@ -165,6 +167,7 @@ class Recipe {
       this.tags,
       this.publish});
 
+  ///Factory para construir clase receta desde un Json
   factory Recipe.fromJson(Map<String, dynamic> json) {
     var jsonComments = json["comments"] as List;
     var jsonIngridients = json["ingridients"] as List;
@@ -240,6 +243,7 @@ class EnterpriseRecipe extends Recipe {
       this.isPublic,
       this.price});
 
+  ///Factory para construir clase receta de empresa desde un Json
   factory EnterpriseRecipe.fromJson(Map<String, dynamic> json) {
     var jsonComments = json["comments"] as List;
     var jsonIngridients = json["ingridients"] as List;

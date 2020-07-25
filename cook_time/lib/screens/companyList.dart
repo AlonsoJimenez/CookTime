@@ -1,5 +1,6 @@
 import 'package:cook_time/future.dart';
 import 'package:cook_time/screens/businessAdmScreen.dart';
+import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
 
@@ -11,6 +12,7 @@ class CompaniesList extends StatefulWidget {
 }
 
 class CompaniesListState extends State<CompaniesList> {
+  ///Creador de la página para ver la lista de empresas.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,6 +31,7 @@ class CompaniesListState extends State<CompaniesList> {
   }
 }
 
+///Devuelve un ListView con las compañías en las que el usuario es miembro.
 ListView getCompanies(List<Enterprise> companies, BuildContext context) {
   List<Widget> addToNews = new List<Widget>();
   if (companies.length != 0) {
@@ -47,10 +50,17 @@ ListView getCompanies(List<Enterprise> companies, BuildContext context) {
   }
 }
 
+///Retorna un SizedBox con la opción de empresa disponible.
 SizedBox selectCompany(Enterprise company, BuildContext context) {
   return SizedBox(
     child: GestureDetector(
-      child: Text(company.enterpriseName),
+      child: Container(
+        decoration: ReusableWidgets.blueBoxDecoration(),
+        child: Text(
+          company.enterpriseName,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       onTap: () {
         companySearch = company.enterpriseName;
         Navigator.pushNamed(context, '/businessAdm');

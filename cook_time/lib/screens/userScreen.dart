@@ -10,6 +10,7 @@ class UserScreen extends StatefulWidget {
 }
 
 class UserScreenState extends State<UserScreen> {
+  ///Constructor de la página de usuario.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,6 +109,7 @@ class UserScreenState extends State<UserScreen> {
     );
   }
 
+  ///Contenedor con los datos del MyMenu del Usuario.
   Container getMenu(List<Recipe> recipes) {
     List<Widget> addToNews = new List<Widget>();
     if (recipes.length != 0) {
@@ -130,6 +132,7 @@ class UserScreenState extends State<UserScreen> {
     }
   }
 
+  ///Retorna un SizedBox para cada receta en el MyMenu.
   SizedBox menu(Recipe recipe) {
     return SizedBox(
       child: Row(
@@ -161,6 +164,7 @@ class UserScreenState extends State<UserScreen> {
     );
   }
 
+  ///Retorna un Icono si el usuario está verificado u otro si no.
   static IconData typeUser(bool isChef) {
     if (isChef) {
       return Icons.verified_user;
@@ -169,6 +173,7 @@ class UserScreenState extends State<UserScreen> {
     }
   }
 
+  ///Retorna un Row que ordena todos los datos del usuario.
   Row userTop(User profileInfo) {
     return Row(children: [
       Column(

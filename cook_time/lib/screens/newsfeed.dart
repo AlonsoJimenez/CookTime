@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:cook_time/future.dart';
-import 'package:cook_time/screens/login.dart';
+//import 'package:cook_time/screens/login.dart';
 import 'package:cook_time/screens/recipeViewScreen.dart';
 import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:cook_time/logic/sizeConfig.dart';
 import '../objects.dart';
 
@@ -16,6 +16,7 @@ class NewsScreen extends StatefulWidget {
 class NewsScreenState extends State<NewsScreen> {
   Future<List<Recipe>> theNews = newsfeed(userForEveryone, passwordForEveryone);
 
+  ///Constructor de la página del Newsfeed de recetas.
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -98,6 +99,7 @@ class NewsScreenState extends State<NewsScreen> {
   }
 }
 
+///Retorna ListView con la información de las resetas.
 ListView gettingNews(List<Recipe> recipes, context) {
   List<Widget> addToNews = new List<Widget>();
   if (recipes.length != 0) {
@@ -114,6 +116,7 @@ ListView gettingNews(List<Recipe> recipes, context) {
   }
 }
 
+///Retorna Container para mostrar las recetas.
 Container news(Recipe recipe, BuildContext context) {
   return Container(
     child: Column(

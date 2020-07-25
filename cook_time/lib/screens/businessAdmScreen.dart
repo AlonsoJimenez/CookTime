@@ -20,6 +20,7 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
 
   List<String> mem;
 
+  ///Inicia los contenedores de los miembros en la página de empresa privada.
   void initContainers() {
     enterpriseSearch(userForEveryone, passwordForEveryone, companySearch)
         .then((value) => {
@@ -44,9 +45,9 @@ class BusinessAdmScreenState extends State<BusinessAdmScreen> {
                     }
                 }
             });
-    //AQUI SE PUEDE REMPLAZAR LOS CONTAINERS QUE USE POR UNOS QUE PERMITAN ENTRAR AL PERFIL DE USUARIO O LO QUE SEA
   }
 
+  ///Creador de la página privada de empresas.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

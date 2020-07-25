@@ -11,6 +11,8 @@ String passwordForEveryone;
 User mainUserProfile;
 
 //get methods
+
+///Get para extraer la información del Newsfeed.
 Future<List<Recipe>> newsfeed(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response =
@@ -29,6 +31,7 @@ Future<List<Recipe>> newsfeed(String user, String password) async {
   }
 }
 
+///Get para extraer la información de la empresa propia.
 Future<List<EnterpriseRecipe>> ownCompany(
     String user, String password, String name) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -47,6 +50,7 @@ Future<List<EnterpriseRecipe>> ownCompany(
   }
 }
 
+///Get para extraer la información del usuario (propio).
 Future<List<Recipe>> ownUser(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -64,6 +68,7 @@ Future<List<Recipe>> ownUser(String user, String password) async {
   }
 }
 
+///Get para extraer el perfil del usuario.
 Future<User> profile(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -78,6 +83,7 @@ Future<User> profile(String user, String password) async {
   }
 }
 
+///Get para extraer las notificaciones según el usuario.
 Future<List<String>> notifications(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -94,6 +100,7 @@ Future<List<String>> notifications(String user, String password) async {
   }
 }
 
+///Get para extraer las compañías del usuario.
 Future<List<Enterprise>> companies(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -113,6 +120,7 @@ Future<List<Enterprise>> companies(String user, String password) async {
   }
 }
 
+///Get para extraer las recetas por estrellas.
 Future<List<Recipe>> byStars(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response =
@@ -131,6 +139,7 @@ Future<List<Recipe>> byStars(String user, String password) async {
   }
 }
 
+///Get para extraer las recetas por fecha.
 Future<List<Recipe>> byDate(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response =
@@ -149,6 +158,7 @@ Future<List<Recipe>> byDate(String user, String password) async {
   }
 }
 
+///Get para extraer las recetas por dificultad.
 Future<List<Recipe>> byDifficulty(String user, String password) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response =
@@ -167,6 +177,7 @@ Future<List<Recipe>> byDifficulty(String user, String password) async {
   }
 }
 
+///Get para buscar usuario.
 Future<User> profileSearch(String user, String password, String search) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -183,6 +194,7 @@ Future<User> profileSearch(String user, String password, String search) async {
   }
 }
 
+///Get para buscar empresa.
 Future<Enterprise> enterpriseSearch(
     String user, String password, String search) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -200,6 +212,7 @@ Future<Enterprise> enterpriseSearch(
   }
 }
 
+///Get para buscar menu.
 Future<Recipe> menuSearch(String user, String password, String search) async {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   final response = await http.get(
@@ -223,6 +236,8 @@ Future<Recipe> menuSearch(String user, String password, String search) async {
 }
 
 //post methods
+
+///Post para añadir nueva receta.
 Future<http.Response> postRecipe(String user, String password, Recipe recipe) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   return http.post("http://10.0.2.2:9080/CookTimeServer/rest/user/recipe",
@@ -234,6 +249,7 @@ Future<http.Response> postRecipe(String user, String password, Recipe recipe) {
       body: jsonEncode(recipe));
 }
 
+///Post para añadir nueva compañía.
 Future<http.Response> postCompany(
     String user, String password, Enterprise company) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -246,6 +262,7 @@ Future<http.Response> postCompany(
       body: jsonEncode(company));
 }
 
+///Post para añadir nuevo usuario.
 Future<http.Response> postUser(User user) {
   String author = "Basic " + base64Encode(utf8.encode("authNew:newUser"));
   return http.post("http://10.0.2.2:9080/CookTimeServer/rest/user/newUser",
@@ -257,6 +274,7 @@ Future<http.Response> postUser(User user) {
       body: jsonEncode(user));
 }
 
+///Post para seguir usuario.
 Future<http.Response> followUser(
     String user, String password, String toFollow) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -267,6 +285,7 @@ Future<http.Response> followUser(
   );
 }
 
+///Post para seguir a una compañía..
 Future<http.Response> followCompany(
     String user, String password, String company) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -277,6 +296,7 @@ Future<http.Response> followCompany(
   );
 }
 
+///Post para añadir un nuevo comentario.
 Future<http.Response> newComment(
     String user, String password, String recipe, String comment) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -287,6 +307,7 @@ Future<http.Response> newComment(
   );
 }
 
+///Post para añadir estrellas a una receta.
 Future<http.Response> newRate(
     String user, String password, String recipe, double star) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -297,6 +318,7 @@ Future<http.Response> newRate(
   );
 }
 
+///Post para añadir nuevo miembro a una empresa.
 Future<http.Response> companyMember(
     String user, String password, String name, String userToFollow) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -307,6 +329,7 @@ Future<http.Response> companyMember(
   );
 }
 
+///Post para añadir nueva receta a la empresa.
 Future<http.Response> companyRecipe(
     String user, String password, String name, EnterpriseRecipe recipe) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -321,7 +344,7 @@ Future<http.Response> companyRecipe(
 }
 
 //put methods
-
+///Put para modificar la compañía.
 Future<http.Response> editCompany(
     String user, String password, String name, Enterprise company) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -334,6 +357,7 @@ Future<http.Response> editCompany(
       body: jsonEncode(company));
 }
 
+///Put para modificar la receta.
 Future<http.Response> editRecipe(
     String user, String password, String name, Recipe recipe) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
@@ -346,6 +370,7 @@ Future<http.Response> editRecipe(
       body: jsonEncode(recipe));
 }
 
+///Put para modificar el usuario.
 Future<http.Response> updateUser(String user, String password, User updater) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));
   return http.put("http://10.0.2.2:9080/CookTimeServer/rest/user/update",
@@ -357,6 +382,7 @@ Future<http.Response> updateUser(String user, String password, User updater) {
       body: jsonEncode(updater));
 }
 
+///Put para eliminar receta.
 Future<http.Response> deleteRecipe(
     String user, String password, String delete) {
   String author = "Basic " + base64Encode(utf8.encode("$user:$password"));

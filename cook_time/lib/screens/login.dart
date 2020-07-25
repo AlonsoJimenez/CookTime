@@ -1,7 +1,7 @@
 import 'package:cook_time/future.dart';
 import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -13,12 +13,14 @@ class LoginState extends State<Login> {
   static final loginController = TextEditingController();
   static final passwordController = TextEditingController();
 
+  ///Callback que al ser llamado modifica el estado del árbol.
   callback(double newOpacity) {
     setState(() {
       opacity = newOpacity;
     });
   }
 
+  ///Constructor de la página de LogIn
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

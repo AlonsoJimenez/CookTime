@@ -8,6 +8,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class NotificationScreenState extends State<NotificationScreen> {
+  ///Constructor de la página de notificaciones.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +27,7 @@ class NotificationScreenState extends State<NotificationScreen> {
   }
 }
 
+///Retorna ListView con las notificaciones.
 ListView gettingNotifications(List<String> notify) {
   List<Widget> addToNews = new List<Widget>();
   if (notify.length != 0) {
@@ -44,6 +46,7 @@ ListView gettingNotifications(List<String> notify) {
   }
 }
 
+///Retorna sizedBox con la string de la notificación dentro.
 SizedBox notification(String dataNews) {
   return SizedBox(
     height: 110,

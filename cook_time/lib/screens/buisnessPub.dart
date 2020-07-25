@@ -20,6 +20,7 @@ class PublicCompanyState extends State<PublicCompany> {
 
   List<String> mem;
 
+  ///Inicia los Containers por cada uno de los miembros.
   void initContainers() {
     enterpriseSearch(userForEveryone, passwordForEveryone, getYourCompany)
         .then((value) => {
@@ -47,6 +48,7 @@ class PublicCompanyState extends State<PublicCompany> {
     //AQUI SE PUEDE REMPLAZAR LOS CONTAINERS QUE USE POR UNOS QUE PERMITAN ENTRAR AL PERFIL DE USUARIO O LO QUE SEA
   }
 
+  ///Constructor de la página pública para empresas.
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

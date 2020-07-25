@@ -13,6 +13,7 @@ import 'package:cook_time/screens/login.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  ///Constructor del Arbol (de Widgets) correspondiente al Main en Flutter/Dart.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

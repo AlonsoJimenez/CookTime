@@ -2,6 +2,8 @@ import 'package:cook_time/logic/sizeConfig.dart';
 import "package:flutter/material.dart";
 
 class ReusableWidgets {
+  ///Contenedor con un TextFormField dentro genérico.
+  ///Parametros: Controlador del textformfield, Text base del TextFormField.
   static Container textFormFieldCreator(
       TextEditingController controller, String text) {
     return Container(
@@ -25,6 +27,8 @@ class ReusableWidgets {
     );
   }
 
+  ///Retorna Contenedor para títulos y categorías.
+  ///Parámetros: Text
   static Container categoryContainer(String text) {
     return Container(
       decoration: genericBoxDecoration(),
@@ -37,6 +41,8 @@ class ReusableWidgets {
     );
   }
 
+  ///Retorna Contenedor con un texto de título/categoría y un texto referente
+  ///en la parte inferior.
   static Container infoContainer(String tittle, String bot) {
     return Container(
       decoration: genericBoxDecoration(),
@@ -60,6 +66,7 @@ class ReusableWidgets {
     );
   }
 
+  ///Divide una string de comentario en el usuario (True) o en el comentario (false).
   static String divider(String todiv, bool user) {
     String res = "";
     if (user) {
@@ -70,6 +77,7 @@ class ReusableWidgets {
     return res;
   }
 
+  ///Decoración para dar efecto de levitación a un container. (color blanco)
   static BoxDecoration genericBoxDecoration() {
     return BoxDecoration(
       color: Colors.white,
@@ -90,6 +98,7 @@ class ReusableWidgets {
     );
   }
 
+  ///Decoración para dar efecto de levitación a un container. (color azul)
   static BoxDecoration blueBoxDecoration() {
     return BoxDecoration(
       color: Colors.blue,
