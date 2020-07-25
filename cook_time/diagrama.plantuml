@@ -1,0 +1,372 @@
+@startuml
+set namespaceSeparator ::
+
+class "cook_time::logic::base64.dart::Base64" {
+  {static} +String base64s
+}
+
+class "cook_time::logic::sizeConfig.dart::SizeConfig" {
+  {static} -MediaQueryData _mediaQueryData
+  {static} +double screenWidth
+  {static} +double screenHeight
+  {static} +double fixerHorizontal
+  {static} +double fixerVertical
+  {static} +double fixAllVer
+  {static} +double fixAllHor
+  {static} +double fixLilVer
+  {static} +double fixLilHor
+  {static} +double fixLil
+  +void init()
+}
+
+"cook_time::logic::sizeConfig.dart::SizeConfig" o-- "flutter::src::widgets::media_query.dart::MediaQueryData"
+
+class "cook_time::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "cook_time::main.dart::MyApp"
+
+class "cook_time::objects.dart::User" {
+  +bool isChef
+  +String imageBytes
+  +String profileDescription
+  +int age
+  +String name
+  +String lastname
+  +String email
+  +String password
+  +List<String> myMenu
+  +List<String> followers
+  +List<String> following
+  +List<Enterprise> companies
+  +List<String> followingComp
+  +List<String> recipes
+  +Map toJson()
+}
+
+class "cook_time::objects.dart::Enterprise" {
+  +String imageBytes
+  +String enterpriseName
+  +String contactInfo
+  +String operationHours
+  +List<double> coordinates
+  +List<EnterpriseRecipe> recipes
+  +List<String> members
+  +List<String> followers
+  +Map toJson()
+}
+
+class "cook_time::objects.dart::Recipe" {
+  +String author
+  +String imageBytes
+  +double stars
+  +String dishName
+  +int portionsSize
+  +int preparationMinutes
+  +String dishType
+  +List<String> tags
+  +List<String> ingridients
+  +List<String> steps
+  +List<String> comments
+  +List<int> publish
+  +int difficulty
+  +int price
+  +Map toJson()
+}
+
+class "cook_time::objects.dart::EnterpriseRecipe" {
+  +String author
+  +String imageBytes
+  +double stars
+  +String dishName
+  +int portionsSize
+  +int preparationMinutes
+  +String dishType
+  +List<String> tags
+  +List<String> ingridients
+  +List<String> steps
+  +List<String> comments
+  +List<int> publish
+  +int difficulty
+  +bool isPublic
+  +int price
+  +Map toJson()
+}
+
+"cook_time::objects.dart::Recipe" <|-- "cook_time::objects.dart::EnterpriseRecipe"
+
+class "cook_time::screens::buisnessPub.dart::PublicCompany" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::buisnessPub.dart::PublicCompany"
+
+class "cook_time::screens::buisnessPub.dart::PublicCompanyState" {
+  +TextEditingController addController
+  +List<Widget> memberContainers
+  +double opacity
+  +List mem
+  +void initContainers()
+  +Widget build()
+}
+
+"cook_time::screens::buisnessPub.dart::PublicCompanyState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::buisnessPub.dart::PublicCompanyState"
+
+class "cook_time::screens::businessAdmScreen.dart::BusinessAdmScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::businessAdmScreen.dart::BusinessAdmScreen"
+
+class "cook_time::screens::businessAdmScreen.dart::BusinessAdmScreenState" {
+  +TextEditingController addController
+  +List<Widget> memberContainers
+  +double opacity
+  +List mem
+  +void initContainers()
+  +Widget build()
+  +Container getMenu()
+  +SizedBox menu()
+}
+
+"cook_time::screens::businessAdmScreen.dart::BusinessAdmScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::businessAdmScreen.dart::BusinessAdmScreenState"
+
+class "cook_time::screens::businessCreatorScreen.dart::BusinessCreatorScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::businessCreatorScreen.dart::BusinessCreatorScreen"
+
+class "cook_time::screens::businessCreatorScreen.dart::BusinessCreatorScreenState" {
+  +GoogleMapController myController
+  +dynamic base64
+  +List<TextEditingController> baseTextFieldControllers
+  +List<Widget> baseTextFormFields
+  +List text
+  +void initTextFormField()
+  +Future getImageFromGallery()
+  +Widget build()
+}
+
+"cook_time::screens::businessCreatorScreen.dart::BusinessCreatorScreenState" o-- "google_maps_flutter::google_maps_flutter.dart::GoogleMapController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::businessCreatorScreen.dart::BusinessCreatorScreenState"
+
+class "cook_time::screens::companyList.dart::CompaniesList" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::companyList.dart::CompaniesList"
+
+class "cook_time::screens::companyList.dart::CompaniesListState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::companyList.dart::CompaniesListState"
+
+class "cook_time::screens::login.dart::Login" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::login.dart::Login"
+
+class "cook_time::screens::login.dart::LoginState" {
+  +double opacity
+  {static} +TextEditingController loginController
+  {static} +TextEditingController passwordController
+  +dynamic callback()
+  +Widget build()
+}
+
+"cook_time::screens::login.dart::LoginState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::login.dart::LoginState"
+
+class "cook_time::screens::newsfeed.dart::NewsScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::newsfeed.dart::NewsScreen"
+
+class "cook_time::screens::newsfeed.dart::NewsScreenState" {
+  +Future<List<Recipe>> theNews
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::newsfeed.dart::NewsScreenState"
+
+class "cook_time::screens::notificationScreen.dart::NotificationScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::notificationScreen.dart::NotificationScreen"
+
+class "cook_time::screens::notificationScreen.dart::NotificationScreenState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::notificationScreen.dart::NotificationScreenState"
+
+class "cook_time::screens::publicUserScreen.dart::PublicUserScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::publicUserScreen.dart::PublicUserScreen"
+
+class "cook_time::screens::publicUserScreen.dart::PublicUserState" {
+  +Widget build()
+  +Row userTop()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::publicUserScreen.dart::PublicUserState"
+
+class "cook_time::screens::recipeScreen.dart::RecipeScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::recipeScreen.dart::RecipeScreen"
+
+class "cook_time::screens::recipeScreen.dart::RecipeScreenState" {
+  +dynamic base64
+  +bool private
+  +List<TextEditingController> baseTextFieldControllers
+  +List<Widget> baseTextFormFields
+  +List<TextEditingController> ingredientTextFieldControllers
+  +List<Widget> ingredientTextFormFields
+  +List<TextEditingController> stepsTextFieldControllers
+  +List<Widget> stepsTextFormFields
+  +List text
+  +void initTextFormField()
+  +Future getImageFromGallery()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::recipeScreen.dart::RecipeScreenState"
+
+class "cook_time::screens::recipeViewScreen.dart::RecipeViewScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::recipeViewScreen.dart::RecipeViewScreen"
+
+class "cook_time::screens::recipeViewScreen.dart::RecipeViewScreenState" {
+  +dynamic base64
+  +List<Widget> stepsContainers
+  +List<Widget> ingredientContainers
+  +List<Widget> commentsContainers
+  {static} +TextEditingController commentController
+  +double stars
+  +List base
+  +List steps
+  +List ingredients
+  +List comments
+  +void initContainers()
+  +Widget build()
+}
+
+"cook_time::screens::recipeViewScreen.dart::RecipeViewScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::recipeViewScreen.dart::RecipeViewScreenState"
+
+class "cook_time::screens::reusableWidgets.dart::ReusableWidgets" {
+  {static} +Container textFormFieldCreator()
+  {static} +Container categoryContainer()
+  {static} +Container infoContainer()
+  {static} +dynamic divider()
+  {static} +BoxDecoration genericBoxDecoration()
+  {static} +BoxDecoration blueBoxDecoration()
+}
+
+class "cook_time::screens::searchScreen.dart::SearchScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::searchScreen.dart::SearchScreen"
+
+class "cook_time::screens::searchScreen.dart::SearchScreenState" {
+  +SizedBox variableCont
+  {static} +TextEditingController searchController
+  {static} +int treeValue
+  {static} +SizedBox defaultContainer()
+  +SizedBox noResults()
+  +SizedBox enterpriseResearch()
+  +SizedBox recipeResearch()
+  +FlatButton followCompanyButton()
+  +SizedBox profileResearch()
+  +FlatButton followUserButton()
+  +Widget build()
+}
+
+"cook_time::screens::searchScreen.dart::SearchScreenState" o-- "flutter::src::widgets::basic.dart::SizedBox"
+"cook_time::screens::searchScreen.dart::SearchScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::searchScreen.dart::SearchScreenState"
+
+class "cook_time::screens::signInScreen.dart::SignInScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::signInScreen.dart::SignInScreen"
+
+class "cook_time::screens::signInScreen.dart::SignInScreenState" {
+  {static} +TextEditingController nameController
+  {static} +TextEditingController lastNameController
+  {static} +TextEditingController lastName2Controller
+  {static} +TextEditingController emailController
+  {static} +TextEditingController ageController
+  {static} +TextEditingController passwordController
+  -Future _onBackPressed()
+  +Widget build()
+}
+
+"cook_time::screens::signInScreen.dart::SignInScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::signInScreen.dart::SignInScreenState"
+
+class "cook_time::screens::tabBView.dart::TabBView" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::tabBView.dart::TabBView"
+
+class "cook_time::screens::tabBView.dart::TabBViewState" {
+  +void initState()
+  -Future _onBackPressed()
+  +Widget build()
+  +Container bottomTabBar()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::tabBView.dart::TabBViewState"
+
+class "cook_time::screens::userEditScreen.dart::UserEditScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::userEditScreen.dart::UserEditScreen"
+
+class "cook_time::screens::userEditScreen.dart::UserEditScreenState" {
+  +dynamic base64
+  {static} +TextEditingController profileController
+  +Future getImageFromGallery()
+  +Widget build()
+}
+
+"cook_time::screens::userEditScreen.dart::UserEditScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::userEditScreen.dart::UserEditScreenState"
+
+class "cook_time::screens::userScreen.dart::UserScreen" {
+  +State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "cook_time::screens::userScreen.dart::UserScreen"
+
+class "cook_time::screens::userScreen.dart::UserScreenState" {
+  +Widget build()
+  +Container getMenu()
+  +SizedBox menu()
+  {static} +IconData typeUser()
+  +Row userTop()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "cook_time::screens::userScreen.dart::UserScreenState"
+
+
+@enduml
