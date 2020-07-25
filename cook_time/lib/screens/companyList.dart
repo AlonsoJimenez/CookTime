@@ -55,12 +55,13 @@ SizedBox selectCompany(Enterprise company, BuildContext context) {
   return SizedBox(
     child: GestureDetector(
       child: Container(
-        decoration: ReusableWidgets.blueBoxDecoration(),
-        child: Text(
-          company.enterpriseName,
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+          decoration: ReusableWidgets.blueBoxDecoration(),
+          child: Center(
+            child: Text(
+              company.enterpriseName,
+              style: TextStyle(color: Colors.white),
+            ),
+          )),
       onTap: () {
         companySearch = company.enterpriseName;
         Navigator.pushNamed(context, '/businessAdm');

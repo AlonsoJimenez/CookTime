@@ -34,7 +34,7 @@ class MapViewerScreenState extends State<MapViewerScreen> {
       children: [
         Container(
           margin: EdgeInsets.all(SizeConfig.fixLil * 50),
-          height: SizeConfig.fixAllVer * 8,
+          height: SizeConfig.fixAllVer * 9.5,
           width: SizeConfig.fixAllHor * 9.5,
           child: GoogleMap(
             markers: Set.from(myMarker),
