@@ -2,6 +2,8 @@ import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'mapSelectorScreen.dart';
+
 class MapViewerScreen extends StatefulWidget {
   @override
   State<MapViewerScreen> createState() => MapViewerScreenState();
@@ -14,7 +16,7 @@ class MapViewerScreenState extends State<MapViewerScreen> {
 
   ///Cambia la posición del mapa según los valores de Latitud y Longitud extraídos
   /// del rest api, estos valores también se usan para generar un marcador en el mapa.
-  void initMarker(double lat, double lng) {
+  void initMarker() {
     setState(() {
       position = LatLng(lat, lng);
       myMarker.add(Marker(
@@ -28,7 +30,7 @@ class MapViewerScreenState extends State<MapViewerScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-
+    initMarker();
     return Material(
         child: Column(
       children: [

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../future.dart';
+import 'mapSelectorScreen.dart';
 
 class BusinessCreatorScreen extends StatefulWidget {
   @override
@@ -121,14 +122,15 @@ class BusinessCreatorScreenState extends State<BusinessCreatorScreen> {
               elevation: 5.0,
               onPressed: () {
                 Enterprise toSend = Enterprise(
-                    contactInfo: baseTextFieldControllers[1].text,
-                    enterpriseName: baseTextFieldControllers[0].text,
-                    followers: [],
-                    members: [userForEveryone],
-                    operationHours: baseTextFieldControllers[2].text,
-                    recipes: [],
-                    imageBytes: base64,
-                    coordinates: []);
+                  contactInfo: baseTextFieldControllers[1].text,
+                  enterpriseName: baseTextFieldControllers[0].text,
+                  followers: [],
+                  members: [userForEveryone],
+                  operationHours: baseTextFieldControllers[2].text,
+                  recipes: [],
+                  imageBytes: base64,
+                  coordinates: [lat, lng],
+                );
                 postCompany(userForEveryone, passwordForEveryone, toSend)
                     .then((response) => {
                           if (response.statusCode == 200)

@@ -5,6 +5,7 @@ import 'package:cook_time/screens/reusableWidgets.dart';
 import 'package:cook_time/screens/searchScreen.dart';
 import 'package:flutter/material.dart';
 import '../objects.dart';
+import 'mapSelectorScreen.dart';
 
 Enterprise vivitYourCompany;
 
@@ -104,6 +105,8 @@ class PublicCompanyState extends State<PublicCompany> {
                               elevation: 5.0,
                               onPressed: () {
                                 setState(() {
+                                  lat = snapshot.data.coordinates[0];
+                                  lng = snapshot.data.coordinates[1];
                                   Navigator.pushNamed(context, '/mapViewer');
                                 });
                               },

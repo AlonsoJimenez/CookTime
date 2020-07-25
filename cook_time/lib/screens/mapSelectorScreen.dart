@@ -2,15 +2,15 @@ import 'package:cook_time/logic/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+double lat = 9.9356284;
+double lng = -84.1483645;
+
 class MapSelectorScreen extends StatefulWidget {
   @override
   State<MapSelectorScreen> createState() => MapSelectorScreenState();
 }
 
 class MapSelectorScreenState extends State<MapSelectorScreen> {
-  double lat;
-  double lng;
-
   List<Marker> myMarker = [];
 
   LatLng position = LatLng(9.9356284, -84.1483645);
@@ -46,7 +46,7 @@ class MapSelectorScreenState extends State<MapSelectorScreen> {
           textColor: Colors.white,
           elevation: 5.0,
           onPressed: () {
-            setState(() {});
+            Navigator.of(context).pop();
           },
           child: Text("Enviar"),
         ),
